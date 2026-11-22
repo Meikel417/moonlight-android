@@ -547,11 +547,11 @@ public class GameDisplayFragment extends BaseGameMenuDialog implements View.OnCl
     }
 
     private void initViewData() {
-        tx_game_display_screen.setText("分辨率："+width+"x"+height);
-        tx_game_display_bit.setText("\t码率："+(bitrate/1000)+"mbps");
-        tx_game_display_fps.setText("\t帧率："+fps+"fps");
-        tx_game_display_direction.setText("\t方向："+(!direction?"横屏":"竖屏(旋转功能失效，自行在PC端显示器改成竖向)"));
-        tx_game_display_ex.setText("\t模式："+(exDiaplay?"外接显示器":"正常模式"));
+        tx_game_display_screen.setText("Auflösung:"+width+"x"+height);
+        tx_game_display_bit.setText("\tBitrate:"+(bitrate/1000)+"mbps");
+        tx_game_display_fps.setText("\tFPS:"+fps+"fps");
+        tx_game_display_direction.setText("\tAusrichtung:"+(!direction?"Querformat":"Hochformat (Drehen geht nicht, Monitor am PC selbst auf Hochformat stellen)"));
+        tx_game_display_ex.setText("\tModus:"+(exDiaplay?"Externer Bildschirm":"Normaler Modus"));
     }
 
     private void initAudio(){
@@ -811,7 +811,7 @@ public class GameDisplayFragment extends BaseGameMenuDialog implements View.OnCl
 
         if(v.getId()==R.id.btn_right){
             if(width==0||height==0||bitrate==0||fps==0){
-                Toast.makeText(getActivity(),"请检查配置信息！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Bitte die Konfiguration prüfen!",Toast.LENGTH_SHORT).show();
                 return;
             }
             if(onClick==null){
@@ -868,7 +868,7 @@ public class GameDisplayFragment extends BaseGameMenuDialog implements View.OnCl
         if(v.getId()==R.id.bt_display_screen){
             GameDisplayResolutionFragment fragment=new GameDisplayResolutionFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("分辨率");
+            fragment.setTitle("Auflösung");
             fragment.setOnClick(new GameDisplayResolutionFragment.onClick() {
                 @Override
                 public void click(int w, int h) {
@@ -898,7 +898,7 @@ public class GameDisplayFragment extends BaseGameMenuDialog implements View.OnCl
         if(v.getId()==R.id.bt_display_bitrate){
             GameDisplayBitrateFragment fragment=new GameDisplayBitrateFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("码率");
+            fragment.setTitle("Bitrate");
             fragment.setOnClick(new GameDisplayBitrateFragment.onClick() {
                 @Override
                 public void click(int num) {
@@ -912,7 +912,7 @@ public class GameDisplayFragment extends BaseGameMenuDialog implements View.OnCl
         if(v.getId()==R.id.bt_display_fps){
             GameDisplayFpsFragment fragment=new GameDisplayFpsFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("帧率");
+            fragment.setTitle("FPS");
             fragment.setOnClick(new GameDisplayFpsFragment.onClick() {
                 @Override
                 public void click(int fps2) {

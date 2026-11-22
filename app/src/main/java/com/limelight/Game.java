@@ -351,14 +351,14 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             binder.start();
             binder.setUsbIpSessionActive(connected);
             connectedToUsbDriverService = true;
-            logSessionInfo("USB", "USB 手柄服务已连接");
+            logSessionInfo("USB", "USB-Controller-Dienst verbunden");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             connectedToUsbDriverService = false;
             usbDriverBinder = null;
-            logSessionWarn("USB", "USB 手柄服务意外断开");
+            logSessionWarn("USB", "USB-Controller-Dienst unerwartet getrennt");
         }
     };
 
@@ -448,14 +448,14 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                     if (displayId == Display.DEFAULT_DISPLAY || externalDisplayRoutingDestroyed) {
                         return;
                     }
-                    logSessionInfo("DISPLAY", "检测到外接显示器接入，displayId=" + displayId);
+                    logSessionInfo("DISPLAY", "Externer Bildschirm angeschlossen, displayId=" + displayId);
                     scheduleExternalDisplayAttach();
                 }
 
                 @Override
                 public void onDisplayRemoved(int displayId) {
                     if (displayId == activeExternalDisplayId) {
-                        restoreRenderViewToHandset("外接显示器已拔出，displayId=" + displayId);
+                        restoreRenderViewToHandset("Externer Bildschirm getrennt, displayId=" + displayId);
                         scheduleExternalDisplayAttach();
                     }
                 }
@@ -466,7 +466,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                         Display display = externalDisplayManager != null
                                 ? externalDisplayManager.getDisplay(displayId) : null;
                         if (display != null) {
-                            logSessionInfo("DISPLAY", "外接显示器状态变化："
+                            logSessionInfo("DISPLAY", "Status externer Bildschirm geändert:"
                                     + describeDisplay(display));
                         }
                     }
@@ -539,10 +539,10 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             sessionTelemetryHandler.postDelayed(
                     sessionTelemetryRunnable, SESSION_TELEMETRY_LOG_INTERVAL_MS);
         }
-        logSessionInfo("LIFECYCLE", "串流页面已创建");
+        logSessionInfo("LIFECYCLE", "Stream-Seite erstellt");
         if (backgroundReconnectAttempt > 0) {
-            logSessionInfo("CONNECT", "开始后台回连，第 " + backgroundReconnectAttempt + "/"
-                    + MAX_BACKGROUND_RECONNECT_ATTEMPTS + " 次");
+            logSessionInfo("CONNECT", "Starte Wiederverbindung im Hintergrund, Versuch" + backgroundReconnectAttempt + "/"
+                    + MAX_BACKGROUND_RECONNECT_ATTEMPTS + " Mal");
             streamLoadingController.showPreparing(getString(
                     R.string.stream_background_reconnecting,
                     backgroundReconnectAttempt,
@@ -851,8 +851,8 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
         if (stereo3dEnabled && willStreamHdr) {
             willStreamHdr = false;
-            Toast.makeText(this, "3D输出首版使用SDR串流，已临时关闭HDR", Toast.LENGTH_LONG).show();
-            logSessionWarn("VIDEO", "SBS 3D 首版禁用 HDR 串流");
+            Toast.makeText(this, "3D-Ausgabe nutzt in dieser Version SDR, HDR wurde vorübergehend deaktiviert", Toast.LENGTH_LONG).show();
+            logSessionWarn("VIDEO", "SBS-3D deaktiviert in dieser Version HDR-Streaming");
         }
 
         // Check if the user has enabled performance stats overlay
@@ -886,7 +886,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                         // We must use commit because the app will crash when we return from this function
                         tombstonePrefs.edit().putInt("CrashCount", tombstonePrefs.getInt("CrashCount", 0) + 1).commit();
                         reportedCrash = true;
-                        logSessionError("DECODER", "MediaCodec 解码器异常", e);
+                        logSessionError("DECODER", "MediaCodec-Decoderfehler", e);
                     }
                 },
                 tombstonePrefs.getInt("CrashCount", 0),
@@ -895,7 +895,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                 glPrefs.glRenderer,
                 this);
         decoderRenderer.setFirstFrameListener(() -> {
-            logSessionInfo("VIDEO", "首帧已显示");
+            logSessionInfo("VIDEO", "Erstes Bild angezeigt");
             streamLoadingController.onFirstFrameRendered();
             if (controllerHandler != null) {
                 controllerHandler.notifyStreamReady();
@@ -1021,7 +1021,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                     @Override
                     public void onAvailabilityChanged(boolean active) {
                         LimeLog.info("Kishi PCM haptics " + (active ? "active" : "inactive"));
-                        logSessionInfo("HAPTICS", "Kishi 原生触觉通道" + (active ? "已启用" : "已停用"));
+                        logSessionInfo("HAPTICS", "Kishi native Haptik" + (active ? "Aktiviert" : "Deaktiviert"));
                     }
 
                     @Override
@@ -2170,7 +2170,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     protected void onDestroy() {
-        logSessionInfo("LIFECYCLE", "串流页面正在销毁");
+        logSessionInfo("LIFECYCLE", "Stream-Seite wird beendet");
         backgroundReconnectHandler.removeCallbacksAndMessages(null);
         sessionTelemetryHandler.removeCallbacksAndMessages(null);
         emitSessionTelemetry();
@@ -2260,7 +2260,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             streamNetworkMonitor = null;
         }
         if (streamSessionLogger != null) {
-            streamSessionLogger.close(reportedCrash ? "解码器异常后结束" : "串流页面已关闭");
+            streamSessionLogger.close(reportedCrash ? "Nach Decoderfehler beendet" : "Stream-Seite geschlossen");
             streamSessionLogger = null;
         }
         super.onDestroy();
@@ -2335,7 +2335,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             videoZoomGestureOverlay.setInputSuppressed(true);
         }
 
-        logSessionInfo("LIFECYCLE", "串流页面进入后台/停止");
+        logSessionInfo("LIFECYCLE", "Stream-Seite im Hintergrund/gestoppt");
 
         Dialog.closeDialogs();
 
@@ -2355,7 +2355,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         }
 
         if (restartingForBackgroundReconnect || isChangingConfigurations()) {
-            logSessionInfo("LIFECYCLE", "串流页面为后台回连而重建");
+            logSessionInfo("LIFECYCLE", "Stream-Seite für Wiederverbindung im Hintergrund neu aufgebaut");
             return;
         }
 
@@ -4034,13 +4034,13 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void stageStarting(final String stage) {
-        logSessionInfo("CONNECT", "开始阶段: " + stage);
+        logSessionInfo("CONNECT", "Startphase:" + stage);
         streamLoadingController.onStageStarting(stage);
     }
 
     @Override
     public void stageComplete(String stage) {
-        logSessionInfo("CONNECT", "完成阶段: " + stage);
+        logSessionInfo("CONNECT", "Abschlussphase:" + stage);
     }
 
     private void stopConnection() {
@@ -4054,7 +4054,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         releaseBackgroundStreamWakeLock();
 
         if (connecting || connected) {
-            logSessionInfo("CONNECT", "请求停止串流连接");
+            logSessionInfo("CONNECT", "Stream-Verbindung wird beendet");
             connecting = connected = false;
             UiHelper.notifyHdrWindowStatus(this, false);
             updatePipAutoEnter();
@@ -4087,7 +4087,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void stageFailed(final String stage, final int portFlags, final int errorCode) {
-        logSessionWarn("CONNECT", "连接阶段失败: " + stage + ", error=" + errorCode
+        logSessionWarn("CONNECT", "Verbindungsphase fehlgeschlagen:" + stage + ", error=" + errorCode
                 + (portFlags != 0 ? ", ports=" + portFlags : ""));
 
         if (restartingForBackgroundReconnect) {
@@ -4135,14 +4135,14 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     @Override
     public void connectionTerminated(final int errorCode) {
         if (errorCode == MoonBridge.ML_ERROR_GRACEFUL_TERMINATION) {
-            logSessionInfo("CONNECT", "连接正常结束, code=" + errorCode);
+            logSessionInfo("CONNECT", "Verbindung normal beendet, code=" + errorCode);
         }
         else {
-            logSessionWarn("CONNECT", "连接异常中断, code=" + errorCode);
+            logSessionWarn("CONNECT", "Verbindung abnormal getrennt, code=" + errorCode);
         }
 
         if (pendingBackgroundReconnect || restartingForBackgroundReconnect) {
-            logSessionInfo("CONNECT", "后台回连清理期间忽略重复的终止回调, code=" + errorCode);
+            logSessionInfo("CONNECT", "Doppelter Beenden-Callback während der Bereinigung ignoriert, code=" + errorCode);
             return;
         }
         boolean backgroundReconnectCandidate = isBackgroundReconnectCandidate(errorCode);
@@ -4252,8 +4252,8 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if (connectionStatus != lastLoggedConnectionStatus) {
             lastLoggedConnectionStatus = connectionStatus;
             logSessionInfo("NETWORK", connectionStatus == MoonBridge.CONN_STATUS_POOR
-                    ? "连接质量变差" : connectionStatus == MoonBridge.CONN_STATUS_OKAY
-                    ? "连接质量恢复" : "连接状态=" + connectionStatus);
+                    ? "Verbindungsqualität schlechter" : connectionStatus == MoonBridge.CONN_STATUS_OKAY
+                    ? "Verbindungsqualität wieder gut" : "Verbindungsstatus=" + connectionStatus);
         }
         runOnUiThread(new Runnable() {
             @Override
@@ -4285,7 +4285,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void connectionStarted() {
-        logSessionInfo("CONNECT", "串流连接已建立");
+        logSessionInfo("CONNECT", "Stream-Verbindung hergestellt");
         if (streamSessionLogger != null) {
             int appliedToleranceMs = MoonBridge.getControlStreamRttToleranceMs();
             logSessionInfo("CONTROL", appliedToleranceMs >= 0
@@ -4306,14 +4306,14 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                     final int completedAttempt = backgroundReconnectAttempt;
                     backgroundReconnectEligibleUntilElapsedMs = SystemClock.elapsedRealtime()
                             + BACKGROUND_RECONNECT_GRACE_MS;
-                    logSessionInfo("CONNECT", "后台回连已建立，等待连接稳定");
+                    logSessionInfo("CONNECT", "Wiederverbindung im Hintergrund hergestellt, warte auf stabile Verbindung");
                     backgroundReconnectHandler.postDelayed(() -> {
                         if (connected && !streamSessionBackgrounded &&
                                 backgroundReconnectAttempt == completedAttempt) {
                             backgroundReconnectAttempt = 0;
                             backgroundReconnectEligibleUntilElapsedMs = 0L;
                             getIntent().removeExtra(EXTRA_BACKGROUND_RECONNECT_ATTEMPT);
-                            logSessionInfo("CONNECT", "后台回连已稳定");
+                            logSessionInfo("CONNECT", "Wiederverbindung im Hintergrund stabil");
                         }
                     }, BACKGROUND_RECONNECT_GRACE_MS);
                 }
@@ -4401,7 +4401,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                performanceRumble.setText(String.format((Locale)null, "手柄%d 震动信号 高%d 低%d", controllerNumber,  (short)((highFreqMotor >> 8) & 0xFF),  (short)((lowFreqMotor >> 8) & 0xFF)));
+                performanceRumble.setText(String.format((Locale)null, "Controller %d Vibrationssignal hoch %d niedrig %d", controllerNumber,  (short)((highFreqMotor >> 8) & 0xFF),  (short)((lowFreqMotor >> 8) & 0xFF)));
             }
         });
     }
@@ -4564,7 +4564,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         }
         if (!attemptedConnection) {
             attemptedConnection = true;
-            logSessionInfo("CONNECT", "渲染表面就绪，开始连接；渲染路径=Surface");
+            logSessionInfo("CONNECT", "Render-Fläche bereit, verbinde; Render-Pfad=Surface");
 
             // Update GameManager state to indicate we're "loading" while connecting
             UiHelper.notifyStreamConnecting(Game.this);
@@ -4585,7 +4585,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         logSessionInfo("VIDEO", glesRenderingEnabled && fsrView != null && holder == fsrView.getHolder()
-                ? "GLES 显示表面已创建" : "视频表面已创建");
+                ? "GLES-Anzeigefläche erstellt" : "Video-Fläche erstellt");
         float desiredFrameRate;
 
         if (glesRenderingEnabled) {
@@ -4637,7 +4637,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        logSessionInfo("VIDEO", "视频表面已销毁");
+        logSessionInfo("VIDEO", "Video-Fläche zerstört");
         if (glesRenderingEnabled) {
             if (fsrView == null || holder != fsrView.getHolder()) {
                 return;
@@ -4812,7 +4812,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
         StringBuilder builder = new StringBuilder();
         if (stats.networkRateKbps > 0) {
-            builder.append("带宽：").append(formatThroughput(stats.networkRateKbps)).append("  ");
+            builder.append("Bandbreite:").append(formatThroughput(stats.networkRateKbps)).append("  ");
         }
         if (prefConfig.enablePerfOverlayLiteExt) {
             builder.append(stats.width > 0 && stats.height > 0
@@ -4828,10 +4828,10 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if (stereo3dEnabled) {
             builder.append(buildStereo3dPerfLabel()).append("  ");
         }
-        builder.append("延迟/解码：");
+        builder.append("Latenz/Dekodierung:");
         builder.append(stats.networkLatencyMs).append(" ms / ");
         builder.append(stats.decodeTimeMs >= 0 ? String.format(Locale.US, "%.2f ms", stats.decodeTimeMs) : "--");
-        builder.append("  丢包率：").append(String.format(Locale.US, "%.2f%%", stats.packetLossPercent));
+        builder.append("  Paketverlust:").append(String.format(Locale.US, "%.2f%%", stats.packetLossPercent));
         builder.append("  FPS：").append(String.format(Locale.US, "%.2f", stats.totalFps));
         if (micStatus == 1) {
             builder.append(" Mic");
@@ -4844,7 +4844,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if(prefConfig.enablePerfOverlayLite){
             return "FSR " + target;
         }
-        return "FSR " + target + " / 锐化 " + getFsrSharpnessDisplayName();
+        return "FSR " + target + " / Schärfen" + getFsrSharpnessDisplayName();
     }
 
     private void renderFullPerfInfo(PerfOverlayStats stats) {
@@ -4854,56 +4854,56 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         performanceOverlayBigContent.removeAllViews();
 
         if (stats == null) {
-            addPerfRow("状态", "--");
+            addPerfRow("Status", "--");
             addPerfRow("USB/IP", buildUsbIpStatusText());
-            addPerfRow("USB/IP地址", buildUsbIpAddressText(), true);
+            addPerfRow("USB/IP-Adresse", buildUsbIpAddressText(), true);
             return;
         }
 
-        addPerfRow("分辨率", stats.width > 0 && stats.height > 0
+        addPerfRow("Auflösung", stats.width > 0 && stats.height > 0
                 ? stats.width + "x" + stats.height + (stats.hdr ? " HDR" : "")
                 : prefConfig.width + "x" + prefConfig.height
                 + (prefConfig.enableHdr && !stereo3dEnabled ? " HDR" : ""));
         if (stats.hdr) {
             Display hdrDisplay = getActiveRenderDisplay();
-            addPerfRow("系统HDR峰值亮度", buildHdrTargetPeakLuminanceText(hdrDisplay));
+            addPerfRow("HDR-Spitzenhelligkeit des Systems", buildHdrTargetPeakLuminanceText(hdrDisplay));
             String hdrSdrRatioText = buildHdrSdrRatioText(hdrDisplay);
             if (hdrSdrRatioText != null) {
-                addPerfRow("HDR/SDR比率", hdrSdrRatioText);
+                addPerfRow("HDR/SDR-Verhältnis", hdrSdrRatioText);
             }
-            addPerfRow("主机HDR母版峰值",
+            addPerfRow("HDR-Mastering-Spitze des Hosts",
                     formatHdrMetadataLuminance(currentHdrMasteringPeakLuminanceNits));
         }
-        addPerfRow("编码", nonEmpty(stats.codecName, "--"));
-        addPerfRow("目标码率", formatMbps(stats.targetBitrateKbps > 0 ? stats.targetBitrateKbps : prefConfig.bitrate));
-        addPerfRow("目标帧率", (stats.targetFps > 0 ? stats.targetFps : prefConfig.fps) + " FPS");
-        addPerfRow("实时帧率", formatFps(stats.totalFps));
-        addPerfRow("视频码率", formatRate(stats.videoRateKbps));
-        addPerfRow("音频码率", formatRate(stats.audioRateKbps));
-        addPerfRow("累计视频流量", formatBytes(stats.videoBytes));
-        addPerfRow("累计音频流量", formatBytes(stats.audioBytes));
-        addPerfRow("渲染方式", glesRenderingEnabled ? "GLES渲染" : "系统渲染");
-        addPerfRow("3D输出", stereo3dEnabled
+        addPerfRow("Kodierung", nonEmpty(stats.codecName, "--"));
+        addPerfRow("Ziel-Bitrate", formatMbps(stats.targetBitrateKbps > 0 ? stats.targetBitrateKbps : prefConfig.bitrate));
+        addPerfRow("Ziel-FPS", (stats.targetFps > 0 ? stats.targetFps : prefConfig.fps) + " FPS");
+        addPerfRow("Aktuelle FPS", formatFps(stats.totalFps));
+        addPerfRow("Video-Bitrate", formatRate(stats.videoRateKbps));
+        addPerfRow("Audio-Bitrate", formatRate(stats.audioRateKbps));
+        addPerfRow("Video-Datenvolumen gesamt", formatBytes(stats.videoBytes));
+        addPerfRow("Audio-Datenvolumen gesamt", formatBytes(stats.audioBytes));
+        addPerfRow("Render-Methode", glesRenderingEnabled ? "GLES-Rendering" : "System-Rendering");
+        addPerfRow("3D-Ausgabe", stereo3dEnabled
                 ? getStereo3dPackingDisplayName() + " "
                 + getStereoOutputSizeLabel() + getStereo3dAiSuffix()
-                + " / 景深" + getStereo3dDepthDisplayName()
-                : "关闭");
-        addPerfRow("超分状态", buildUpscaleStatusText());
-        addPerfRow("实际渲染链", buildRenderPipelineText());
-        addPerfRow("连接地址", nonEmpty(streamHost, "--"));
-        addPerfRow("本地时长", buildSessionDurationText());
-        addPerfRow("网络延迟", stats.networkLatencyMs > 0
-                ? stats.networkLatencyMs + " ms / 抖动 " + stats.networkLatencyVarianceMs + " ms"
+                + " / Tiefenschärfe" + getStereo3dDepthDisplayName()
+                : "Schließen");
+        addPerfRow("Upscaling-Status", buildUpscaleStatusText());
+        addPerfRow("Tatsächliche Render-Kette", buildRenderPipelineText());
+        addPerfRow("Verbindungsadresse", nonEmpty(streamHost, "--"));
+        addPerfRow("Lokale Dauer", buildSessionDurationText());
+        addPerfRow("Netzwerklatenz", stats.networkLatencyMs > 0
+                ? stats.networkLatencyMs + " ms / Jitter" + stats.networkLatencyVarianceMs + " ms"
                 : "--");
-        addPerfRow("丢包率", String.format(Locale.US, "%.2f%%", stats.packetLossPercent));
-        addPerfRow("解码延迟", stats.decodeTimeMs >= 0 ? String.format(Locale.US, "%.2f ms", stats.decodeTimeMs) : "--");
-        addPerfRow("主机延迟", stats.hostProcessingLatencyMs > 0 ? String.format(Locale.US, "%.1f ms", stats.hostProcessingLatencyMs) : "--");
-        addPerfRow("麦克风", micStatus == 1 ? "开启" : "关闭");
-        addPerfRow("游戏震动", buildNativeGameHapticsStatusText());
-        addPerfRow("音频震动", buildAudioHapticsStatusText());
-        addPerfRow("USB手柄", buildUsbControllerStatusText());
+        addPerfRow("Paketverlust", String.format(Locale.US, "%.2f%%", stats.packetLossPercent));
+        addPerfRow("Dekodier-Latenz", stats.decodeTimeMs >= 0 ? String.format(Locale.US, "%.2f ms", stats.decodeTimeMs) : "--");
+        addPerfRow("Host-Latenz", stats.hostProcessingLatencyMs > 0 ? String.format(Locale.US, "%.1f ms", stats.hostProcessingLatencyMs) : "--");
+        addPerfRow("Mikrofon", micStatus == 1 ? "Einschalten" : "Schließen");
+        addPerfRow("Spiel-Vibration", buildNativeGameHapticsStatusText());
+        addPerfRow("Audio-Vibration", buildAudioHapticsStatusText());
+        addPerfRow("USB-Controller", buildUsbControllerStatusText());
         addPerfRow("USB/IP", buildUsbIpStatusText());
-        addPerfRow("USB/IP地址", buildUsbIpAddressText(), true);
+        addPerfRow("USB/IP-Adresse", buildUsbIpAddressText(), true);
     }
 
     /** Read the service-owned USB/IP state without retaining an old handoff state in the UI. */
@@ -4986,23 +4986,23 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     private String buildHdrTargetPeakLuminanceText(Display display) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || display == null) {
-            return "系统未报告";
+            return "Vom System nicht gemeldet";
         }
 
         try {
             Display.HdrCapabilities hdrCapabilities = display.getHdrCapabilities();
             if (hdrCapabilities == null) {
-                return "系统未报告";
+                return "Vom System nicht gemeldet";
             }
             float peakLuminance = hdrCapabilities.getDesiredMaxLuminance();
             if (!isValidPositiveDisplayValue(peakLuminance)
                     || peakLuminance == Display.HdrCapabilities.INVALID_LUMINANCE) {
-                return "系统未报告";
+                return "Vom System nicht gemeldet";
             }
             return String.format(Locale.US, "%,.0f nit", peakLuminance);
         }
         catch (RuntimeException e) {
-            return "系统未报告";
+            return "Vom System nicht gemeldet";
         }
     }
 
@@ -5044,12 +5044,12 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     private static String formatHdrMetadataLuminance(int luminanceNits) {
         return luminanceNits > 0
                 ? String.format(Locale.US, "%,d nit", luminanceNits)
-                : "主机未提供";
+                : "Vom Host nicht angegeben";
     }
 
     private String buildUpscaleStatusText() {
         if (!fsrEnabled) {
-            return "关闭";
+            return "Schließen";
         }
         return getFsrTargetDisplayName() + " / "
                 + getFsrSharpnessDisplayName() + " / "
@@ -5058,11 +5058,11 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     private String buildRenderPipelineText() {
         if (!glesRenderingEnabled) {
-            return "系统直出";
+            return "System-Direktausgabe";
         }
         String stereoSuffix = stereo3dEnabled ? " → " + buildStereo3dPerfLabel() : "";
         if (!fsrEnabled) {
-            return "GLES直通" + stereoSuffix;
+            return "GLES-Direkt" + stereoSuffix;
         }
         return (isFsrNativeHdrOutputEnabled() ? "GLES FSR HDR" : "GLES FSR SDR")
                 + stereoSuffix;
@@ -5082,7 +5082,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if (controllerHandler != null && controllerHandler.hasActiveUsbController()) {
             String controllerType = controllerHandler.getActiveUsbControllerTypeDisplayName();
             String protocol = controllerHandler.getActiveUsbControllerProtocolDisplayName();
-            StringBuilder status = new StringBuilder("已连接");
+            StringBuilder status = new StringBuilder("Verbunden");
             if (controllerType != null && !controllerType.isEmpty()) {
                 status.append(" / ").append(controllerType);
             }
@@ -5092,53 +5092,53 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             return status.toString();
         }
         if (!prefConfig.usbDriver) {
-            return "关闭";
+            return "Schließen";
         }
-        return connectedToUsbDriverService ? "待机" : "未启动";
+        return connectedToUsbDriverService ? "Standby" : "Nicht gestartet";
     }
 
     private String buildNativeGameHapticsStatusText() {
         return controllerHandler == null
-                ? "待触发"
+                ? "Wartet auf Auslösung"
                 : controllerHandler.getNativeGameHapticsOutputRouteDisplayName();
     }
 
     private String buildAudioHapticsStatusText() {
         if (!prefConfig.enableAudioHaptics) {
-            return "关闭";
+            return "Schließen";
         }
 
         String outputRoute;
         if ("controller".equals(prefConfig.audioHapticsOutputTarget)) {
             outputRoute = controllerHandler == null
-                    ? "待触发"
+                    ? "Wartet auf Auslösung"
                     : controllerHandler.getAudioHapticsOutputRouteDisplayName();
-            if ("待触发".equals(outputRoute)) {
-                outputRoute += " / 手柄";
+            if ("Wartet auf Auslösung".equals(outputRoute)) {
+                outputRoute += " / Controller";
             }
         }
         else {
             outputRoute = audioRenderer != null && audioRenderer.hasRecentPhoneAudioHapticsOutput()
-                    ? "普通震动 / 手机"
-                    : "待触发 / 手机";
+                    ? "Normale Vibration / Handy"
+                    : "Wartet auf Auslösung / Handy";
         }
 
         return outputRoute
-                + " / 滤" + getAudioHapticsVoiceFilterDisplayName()
+                + " / Filter" + getAudioHapticsVoiceFilterDisplayName()
                 + " / " + prefConfig.audioHapticsStrength + "%";
     }
 
     private String getAudioHapticsVoiceFilterDisplayName() {
         if ("low".equals(prefConfig.audioHapticsVoiceFilter)) {
-            return "低";
+            return "Niedrig";
         }
         if ("medium".equals(prefConfig.audioHapticsVoiceFilter)) {
-            return "中";
+            return "Mittel";
         }
         if ("high".equals(prefConfig.audioHapticsVoiceFilter)) {
-            return "高";
+            return "Hoch";
         }
-        return "关";
+        return "Aus";
     }
 
     private String buildSessionDurationText() {
@@ -5227,7 +5227,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     private void applyMicSpan(SpannableString spannable, String text) {
         int start = text.indexOf("Mic");
         if (start < 0) {
-            start = text.indexOf("麦克风");
+            start = text.indexOf("Mikrofon");
         }
         if (start < 0) {
             return;
@@ -5242,7 +5242,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void onUsbPermissionPromptStarting() {
-        logSessionInfo("USB", "正在请求 USB 手柄授权");
+        logSessionInfo("USB", "Fordere USB-Controller-Freigabe an");
         usbPermissionPromptVisible = true;
         streamLoadingController.setCancelEnabled(false);
         // Disable PiP auto-enter while the USB permission prompt is on-screen. This prevents
@@ -5253,7 +5253,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     @Override
     public void onUsbPermissionPromptCompleted() {
-        logSessionInfo("USB", "USB 手柄授权流程已结束");
+        logSessionInfo("USB", "USB-Controller-Freigabe abgeschlossen");
         usbPermissionPromptVisible = false;
         streamLoadingController.setCancelEnabled(true);
         suppressPipRefCount--;
@@ -5457,7 +5457,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     //切换虚拟手柄模式
     public void switchVirtualController(KeyBoardController.ControllerMode mode){
         if(virtualController==null||!prefConfig.onscreenController){
-            Toast.makeText(this,"请先打开虚拟手柄开关！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Bitte zuerst den virtuellen Controller einschalten!",Toast.LENGTH_SHORT).show();
             return;
         }
         virtualController.switchMode(mode);
@@ -5474,7 +5474,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     //切换虚拟手柄模式
     public void switchVirtualKeyController(KeyBoardController.ControllerMode mode){
         if(keyBoardController==null||!prefConfig.enableKeyboard){
-            Toast.makeText(this,"请先打开虚拟按键开关！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Bitte zuerst die virtuellen Tasten einschalten!",Toast.LENGTH_SHORT).show();
             return;
         }
         keyBoardController.switchMode(mode);
@@ -5563,7 +5563,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         pendingBackgroundReconnectErrorCode = errorCode;
         backgroundReconnectEligibleUntilElapsedMs = 0L;
         displayedFailureDialog = false;
-        logSessionWarn("CONNECT", "后台期间连接中断，等待回到前台自动恢复, code=" + errorCode);
+        logSessionWarn("CONNECT", "Verbindung im Hintergrund unterbrochen, wird beim Zurückkehren automatisch wiederhergestellt, code=" + errorCode);
         LimeLog.warning("Background stream interrupted; reconnect will start when Game resumes. code="
                 + errorCode);
 
@@ -5599,7 +5599,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         pendingBackgroundReconnectErrorCode = errorCode;
         displayedFailureDialog = false;
         connecting = false;
-        logSessionWarn("CONNECT", "后台回连失败，准备重试, attempt="
+        logSessionWarn("CONNECT", "Wiederverbindung im Hintergrund fehlgeschlagen, neuer Versuch, attempt="
                 + backgroundReconnectAttempt + ", code=" + errorCode);
         maybeStartBackgroundReconnect();
     }
@@ -5628,8 +5628,8 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                 R.string.stream_background_reconnecting,
                 nextAttempt,
                 MAX_BACKGROUND_RECONNECT_ATTEMPTS));
-        logSessionInfo("CONNECT", "准备重建串流页面并回连，第 " + nextAttempt + "/"
-                + MAX_BACKGROUND_RECONNECT_ATTEMPTS + " 次");
+        logSessionInfo("CONNECT", "Stream-Seite wird neu aufgebaut und verbindet erneut, Versuch" + nextAttempt + "/"
+                + MAX_BACKGROUND_RECONNECT_ATTEMPTS + " Mal");
         LimeLog.info("Background stream reconnect: scheduling attempt " + nextAttempt + "/"
                 + MAX_BACKGROUND_RECONNECT_ATTEMPTS);
 
@@ -5691,7 +5691,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
         streamSessionBackgrounded = true;
         backgroundReconnectEligibleUntilElapsedMs = Long.MAX_VALUE;
-        logSessionInfo("LIFECYCLE", "串流进入后台挂起，保留网络会话");
+        logSessionInfo("LIFECYCLE", "Stream im Hintergrund pausiert, Netzwerksitzung bleibt bestehen");
         LimeLog.info("Background stream: retaining session while activity is stopped");
 
         decoderRenderer.notifyVideoBackground();
@@ -5758,7 +5758,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         backgroundReconnectEligibleUntilElapsedMs = SystemClock.elapsedRealtime()
                 + BACKGROUND_RECONNECT_GRACE_MS;
         releaseBackgroundStreamWakeLock();
-        logSessionInfo("LIFECYCLE", "渲染表面已恢复，继续原串流会话");
+        logSessionInfo("LIFECYCLE", "Render-Fläche wiederhergestellt, Stream wird fortgesetzt");
 
         if (restoreInputGrabAfterBackground) {
             restoreInputGrabAfterBackground = false;
@@ -6044,7 +6044,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             routeRenderViewToExternalDisplay(display);
         }
         else {
-            logSessionInfo("DISPLAY", "当前未检测到可用的外接显示器，等待热插拔事件");
+            logSessionInfo("DISPLAY", "Kein externer Bildschirm erkannt, warte auf Anschluss");
         }
     }
 
@@ -6143,7 +6143,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         }
         rememberHandsetRenderHost(renderView);
         if (handsetRenderParent == null) {
-            logSessionInfo("DISPLAY", "外屏切换失败：无法确定手机端渲染容器");
+            logSessionInfo("DISPLAY", "Wechsel zum externen Bildschirm fehlgeschlagen: Render-Container am Handy nicht gefunden");
             return;
         }
 
@@ -6151,7 +6151,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                 new SecondaryDisplayPresentation(this, display);
         newPresentation.setOnDismissListener(dialog -> {
             if (!externalDisplayRoutingDestroyed && presentation == newPresentation) {
-                restoreRenderViewToHandset("外接显示窗口已关闭，displayId="
+                restoreRenderViewToHandset("Fenster auf externem Bildschirm geschlossen, displayId="
                         + display.getDisplayId());
                 scheduleExternalDisplayAttach();
             }
@@ -6165,13 +6165,13 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             if (newPresentation.isShowing()) {
                 newPresentation.dismiss();
             }
-            logSessionInfo("DISPLAY", "外屏切换失败：" + e.getMessage());
+            logSessionInfo("DISPLAY", "Wechsel zum externen Bildschirm fehlgeschlagen:" + e.getMessage());
             return;
         }
 
         presentation = newPresentation;
         activeExternalDisplayId = display.getDisplayId();
-        logSessionInfo("DISPLAY", "渲染画面正在迁移到外接显示器：" + describeDisplay(display));
+        logSessionInfo("DISPLAY", "Bild wird auf externen Bildschirm verschoben:" + describeDisplay(display));
 
         configureExternalRenderView(renderView, display, newPresentation);
         ViewParent parent = renderView.getParent();
@@ -6212,11 +6212,11 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         }
         configureStereoOutputSize(targetWidth, selectedHeight);
         logSessionInfo("DISPLAY", exactModeSelected
-                ? "外接显示器已请求 " + getStereoOutputSizeLabel() + " "
-                + getStereo3dPackingDisplayName() + "模式"
-                : "外接显示器未暴露 " + targetWidth
-                + "x1080/1200 模式，" + getStereo3dPackingDisplayName()
-                + "将适配实际显示尺寸");
+                ? "Externer Bildschirm angefordert" + getStereoOutputSizeLabel() + " "
+                + getStereo3dPackingDisplayName() + "Modus"
+                : "Externer Bildschirm stellt nicht bereit:" + targetWidth
+                + "x1080/1200-Modus," + getStereo3dPackingDisplayName()
+                + "Wird an die tatsächliche Anzeigegröße angepasst");
 
         // Some Android vendors expose the physical SBS mode through Display.Mode, but keep
         // the Presentation layer stack at a different logical size. Fill that logical window
@@ -6266,7 +6266,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                 ? handsetRenderParent.getChildCount()
                 : Math.min(handsetRenderIndex, handsetRenderParent.getChildCount());
         handsetRenderParent.addView(renderView, insertIndex);
-        logSessionInfo("DISPLAY", reason + "；渲染画面已恢复到手机屏幕");
+        logSessionInfo("DISPLAY", reason + "; Bild ist wieder auf dem Handy-Bildschirm");
     }
 
     private void restoreHandsetRenderConfiguration(View renderView) {
@@ -6353,8 +6353,8 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     private String getStereo3dPackingDisplayName() {
         return stereo3dOutputLayout == Stereo3dOutputLayout.HALF_SBS
-                ? "SBS 半宽"
-                : "SBS 全宽";
+                ? "SBS halbe Breite"
+                : "SBS volle Breite";
     }
 
     private boolean isFsrEnabled() {
@@ -6383,12 +6383,12 @@ public class Game extends Activity implements SurfaceHolder.Callback,
 
     private String getStereo3dDepthDisplayName() {
         if ("soft".equalsIgnoreCase(prefConfig.stereo3dDepth)) {
-            return "弱";
+            return "Schwach";
         }
         if ("strong".equalsIgnoreCase(prefConfig.stereo3dDepth)) {
-            return "强";
+            return "Stark";
         }
-        return "标准";
+        return "Standard";
     }
 
     private float getFsrSharpness() {
@@ -6510,22 +6510,22 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if ("2k".equalsIgnoreCase(target)) {
             return "2K";
         }
-        return "关闭";
+        return "Schließen";
     }
 
     private String getFsrSharpnessDisplayName() {
         String value = PreferenceManager.getDefaultSharedPreferences(this)
                 .getString("list_fsr_sharpness", "standard");
         if ("soft".equalsIgnoreCase(value)) {
-            return "柔和";
+            return "Sanft";
         }
         if ("strong".equalsIgnoreCase(value)) {
-            return "强";
+            return "Stark";
         }
         if ("max".equalsIgnoreCase(value)) {
-            return "极强";
+            return "Sehr stark";
         }
-        return "标准";
+        return "Standard";
     }
 
     private boolean isFsrNativeHdrOutputEnabled() {
@@ -6560,8 +6560,8 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         }
 
         attemptedConnection = true;
-        logSessionInfo("CONNECT", "渲染表面就绪，开始连接；渲染路径="
-                + (fsrEnabled ? "FSR/GLES" : "GLES直通")
+        logSessionInfo("CONNECT", "Render-Fläche bereit, verbinde; Render-Pfad="
+                + (fsrEnabled ? "FSR/GLES" : "GLES-Direkt")
                 + (stereo3dEnabled
                 ? "/SBS3D " + getStereoOutputSizeLabel()
                 : ""));
@@ -6606,9 +6606,9 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         int rttMs = rttInfo == -1L ? -1 : (int) (rttInfo >> 32);
         int rttVarianceMs = rttInfo == -1L ? -1 : (int) rttInfo;
         logSessionInfo("PERF", String.format(Locale.US,
-                "%dx%d %s, FPS %.1f/%.1f, 网络 %.0f Kbps, 视频 %.0f Kbps, 音频 %.0f Kbps, "
-                        + "延迟 %d±%d ms, 视频帧丢失 %.2f%%, 解码 %.2f ms, 主机 %.2f ms, "
-                        + "统计年龄 %d ms",
+                "%dx%d %s, FPS %.1f/%.1f, Netzwerk %.0f Kbps, Video %.0f Kbps, Audio %.0f Kbps,"
+                        + "Latenz %d±%d ms, verlorene Frames %.2f%%, Dekodierung %.2f ms, Host %.2f ms,"
+                        + "Statistik-Alter %d ms",
                 stats.width, stats.height, nonEmpty(stats.codecName, "--"),
                 stats.renderedFps, stats.receivedFps, stats.networkRateKbps,
                 stats.videoRateKbps, stats.audioRateKbps, rttMs, rttVarianceMs,
@@ -6621,12 +6621,12 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     }
 
     private String buildSessionStateText() {
-        return "渲染=" + buildRenderPipelineText()
-                + "；系统手柄=" + (controllerHandler != null
-                        ? controllerHandler.getSystemControllerDiagnosticsDisplayName() : "未初始化")
-                + "；USB手柄=" + buildUsbControllerStatusText()
-                + "；游戏震动=" + buildNativeGameHapticsStatusText()
-                + "；音频震动=" + buildAudioHapticsStatusText();
+        return "Rendering=" + buildRenderPipelineText()
+                + "; System-Controller=" + (controllerHandler != null
+                        ? controllerHandler.getSystemControllerDiagnosticsDisplayName() : "Nicht initialisiert")
+                + "; USB-Controller=" + buildUsbControllerStatusText()
+                + "; Spiel-Vibration=" + buildNativeGameHapticsStatusText()
+                + "; Audio-Vibration=" + buildAudioHapticsStatusText();
     }
 
     private void recordExplicitHapticsStop(String reason) {
@@ -6663,7 +6663,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             throws java.io.IOException, org.json.JSONException {
         StreamReqBean request = streamReqBean;
         if (!connected || request == null) {
-            throw new java.io.IOException("串流已断开");
+            throw new java.io.IOException("Stream getrennt");
         }
         NvHTTP http = new NvHTTP(request.getActiveAddress(), request.getHttpsPort(), request.getUniqueId(),
                 request.getServerCert(), request.getCryptoProvider());
@@ -6859,7 +6859,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         if (micStatus == 1) {
             conn.stopMicUplink();
             micStatus = 0;
-            Toast.makeText(this, "麦克风已关闭", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Mikrofon aus", Toast.LENGTH_SHORT).show();
             return;
         }
 

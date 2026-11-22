@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gamepad_emulation_names">
+        <item>Automatisch</item>
+        <item>Xbox 360</item>
+        <item>DualShock 4</item>
+        <item>DualSense</item>
+    </string-array>
+    <string-array name="video_render_mode_names">
+        <item>System-Rendering</item>
+        <item>GLES-Rendering</item>
+    </string-array>
+    <string-array name="stereo_3d_mode_names">
+        <item>Aus</item>
+        <item>Nebeneinander, volle Breite</item>
+        <item>Nebeneinander, halbe Breite</item>
+    </string-array>
+    <string-array name="stereo_3d_depth_names">
+        <item>Schwach</item>
+        <item>Standard</item>
+        <item>Stark</item>
+    </string-array>
+    <string-array name="stereo_3d_convergence_names">
+        <item>Nah</item>
+        <item>Standard</item>
+        <item>Fern</item>
+    </string-array>
+    <string-array name="fsr_target_names">
+        <item>Aus</item>
+        <item>2K</item>
+        <item>4K</item>
+    </string-array>
+    <string-array name="fsr_sharpness_names">
+        <item>Sanft</item>
+        <item>Standard</item>
+        <item>Stark</item>
+        <item>Sehr stark</item>
+    </string-array>
+    <string-array name="fsr_hdr_output_names">
+        <item>Kompatible SDR-Umrechnung</item>
+        <item>Natives HDR direkt</item>
+    </string-array>
+    <string-array name="audio_haptics_voice_filter_names">
+        <item>Aus</item>
+        <item>Niedrig</item>
+        <item>Mittel</item>
+        <item>Hoch</item>
+    </string-array>
+    <string-array name="audio_haptics_output_target_names">
+        <item>Handy</item>
+        <item>Controller</item>
+    </string-array>
+    <string-array name="keyboard_axi_names">
+        <item>Layout 1</item>
+        <item>Layout 2</item>
+        <item>Layout 3</item>
+        <item>Layout 4</item>
+        <item>Layout 5</item>
+    </string-array>
+    <string-array name="mouse_model_names_axi">
+        <item>Multitouch-Modus</item>
+        <item>Normaler Mausmodus</item>
+        <item>Touchpad-Modus</item>
+        <item>Maus/Touch deaktiviert</item>
+        <item>Normale Maus (Tasten vertauscht)</item>
+        <item>Touchpad (nur bewegen)</item>
+        <item>Touchpad (bewegen + Linksklick)</item>
+        <item>Touchpad (Mehrfinger-Gesten)</item>
+    </string-array>
+    <string-array name="screen_gravity_list_names">
+        <item>Mittig (Standard)</item>
+        <item>Oben mittig</item>
+        <item>Oben links</item>
+        <item>Oben rechts</item>
+        <item>Unten mittig</item>
+        <item>Unten links</item>
+        <item>Unten rechts</item>
+    </string-array>
+    <string-array name="gamepad_axi_names">
+        <item>Layout 1</item>
+        <item>Layout 2</item>
+        <item>Layout 3</item>
+        <item>Layout 4</item>
+        <item>Layout 5</item>
+    </string-array>
+</resources>

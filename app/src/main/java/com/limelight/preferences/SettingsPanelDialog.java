@@ -364,7 +364,7 @@ public class SettingsPanelDialog extends BaseGameMenuFragmentDialog {
                         headingAdded = true;
                     }
                     if (HUD.equals(key)) {
-                        row("性能信息", null, hudLabel(), null, key, () -> openEditor(key));
+                        row("Leistungsinfo", null, hudLabel(), null, key, () -> openEditor(key));
                     } else {
                         addPreference(pref);
                     }
@@ -460,8 +460,8 @@ public class SettingsPanelDialog extends BaseGameMenuFragmentDialog {
 
     private void renderEditor() {
         if (HUD.equals(editor)) {
-            title.setText("性能信息");
-            String[] labels = {"关闭", "精简", "完整"};
+            title.setText("Leistungsinfo");
+            String[] labels = {"Schließen", "Kompakt", "Vollständig"};
             for (int i = 0; i < labels.length; i++) {
                 final int mode = i;
                 choice(labels[i], labels[i].equals(hudLabel()), () -> {
@@ -530,7 +530,7 @@ public class SettingsPanelDialog extends BaseGameMenuFragmentDialog {
     private String hudLabel() {
         int mode = SettingsCatalog.overlayMode(checked("checkbox_enable_perf_overlay"),
                 checked("checkbox_enable_perf_overlay_lite"));
-        return new String[] {"关闭", "精简", "完整"}[mode];
+        return new String[] {"Schließen", "Kompakt", "Vollständig"}[mode];
     }
 
     private void numericEditor(SeekBarPreference pref) {
@@ -844,7 +844,7 @@ public class SettingsPanelDialog extends BaseGameMenuFragmentDialog {
             toggle.setThumbTintList(getResources().getColorStateList(R.color.settings_toggle_thumb));
             toggle.setTrackTintList(getResources().getColorStateList(R.color.settings_toggle_track));
             row.addView(toggle);
-            row.setContentDescription(label + (checked ? "，已开启" : "，已关闭")
+            row.setContentDescription(label + (checked ? ", eingeschaltet" : ", ausgeschaltet")
                     + (TextUtils.isEmpty(detail) ? "" : "，" + detail));
         } else {
             TextView arrow = text("›", 22, 0xFFAAAAAA);

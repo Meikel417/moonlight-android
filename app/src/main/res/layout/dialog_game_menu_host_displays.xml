@@ -14,14 +14,14 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/ic_game_menu_btn_side_selector"
-            android:contentDescription="返回"
+            android:contentDescription="Zurück"
             android:src="@drawable/ic_axi_back" />
         <TextView
             android:id="@+id/tx_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="主机显示器"
+            android:text="Host-Monitor"
             android:textColor="@android:color/white"
             android:textSize="13dp" />
         <Button
@@ -33,7 +33,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/ic_game_menu_btn_side_selector"
             android:gravity="center"
-            android:text="刷新"
+            android:text="Aktualisieren"
             android:textColor="@android:color/white"
             android:textSize="11dp" />
     </RelativeLayout>
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="正在读取 StarCore星核 PC 显示器…"
+        android:text="StarCore-Monitore werden gelesen…"
         android:textColor="#BBBBBB"
         android:textSize="8dp" />
     <ScrollView

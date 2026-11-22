@@ -93,11 +93,22 @@ android {
         }
     }
 
+    signingConfigs {
+        // Fester Schlüssel für die Fork-APKs, damit Updates sich über die alte
+        // Version installieren lassen. Nur für private Sideload-Builds gedacht.
+        meikel {
+            storeFile file('meikel-fork.jks')
+            storePassword 'moonlight-de'
+            keyAlias 'meikel'
+            keyPassword 'moonlight-de'
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-            resValue "string", "app_label", "月光"
-            resValue "string", "app_label_root", "DR·月光"
+            resValue "string", "app_label", "Moonlight DE (Debug)"
+            resValue "string", "app_label_root", "Moonlight DE Root (Debug)"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -133,10 +144,12 @@ android {
             // is to please change the applicationId before you publish.
             //
             // TL;DR: Leave the following line alone!
-            applicationIdSuffix ".unofficialA"
-//            resValue "string", "app_label", "安兔兔·月光"
-            resValue "string", "app_label", "月光·阿西西"
-            resValue "string", "app_label_root", "Moonlight (Root)"
+            // Meikel-Fork: eigene App-ID, damit die App neben Moonlight und dem
+            // Axixi-Original installiert werden kann.
+            applicationIdSuffix ".meikel"
+            resValue "string", "app_label", "Moonlight DE"
+            resValue "string", "app_label_root", "Moonlight DE (Root)"
+            signingConfig signingConfigs.meikel
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_panel_title">Einstellungen</string>
+    <string name="settings_panel_back">Zurück</string>
+    <string name="settings_panel_close">Schließen</string>
+    <string name="settings_panel_hint">Optionen für den nächsten Stream festlegen</string>
+    <string name="settings_panel_custom">Eigene Auflösung</string>
+    <string name="settings_panel_apply">Speichern</string>
+    <string name="settings_panel_reset">Standardwert verwenden</string>
+    <string name="settings_panel_resolution_hint">Breite × Höhe, z. B. 1920x1080</string>
+    <string name="settings_panel_resolution_error">Bitte gerade Werte zwischen 2 und 16384 eingeben, z. B. 1920x1080</string>
+    <string name="settings_panel_range_error">Bitte einen Wert zwischen %1$s und %2$s eingeben</string>
+    <string name="settings_panel_empty">Für dieses Gerät gibt es keine Optionen</string>
+    <string name="settings_panel_width">Breite</string>
+    <string name="settings_panel_height">Höhe</string>
+    <string name="settings_panel_swap">Breite und Höhe tauschen</string>
+    <string name="settings_panel_pixels">Pixel</string>
+    <string name="settings_panel_bitrate_hint">Manuell eingeben, max. 99999 Mbps</string>
+    <string name="settings_panel_bitrate_presets">Häufige Bitraten · Mbps</string>
+    <string name="settings_profile_switch">Profil wechseln</string>
+    <string name="settings_profile_name">Profil %1$s</string>
+    <string name="settings_profile_current">Aktuell: Profil %1$s</string>
+    <string name="settings_profile_title">Einstellungen · %1$s</string>
+    <string name="settings_profile_reset">Daten zurücksetzen</string>
+    <string name="settings_profile_reset_hint">Standardeinstellungen für dieses Profil wiederherstellen</string>
+    <string name="settings_profile_reset_confirm">Die Einstellungen von Profil %1$s werden auf Standard zurückgesetzt. Andere Profile, Host-Kopplungen, Logs und importierte Dateien bleiben erhalten.</string>
+    <string name="settings_profile_reset_action">Zurücksetzen</string>
+    <string name="settings_profile_working">Profil wird gespeichert…</string>
+    <string name="settings_profile_failed">Profil konnte nicht gespeichert werden, bitte erneut versuchen.</string>
+    <string name="settings_profile_choose_hint">Beim Wechsel wird das aktuelle Profil automatisch gespeichert. Neue Profile starten mit Standardeinstellungen.</string>
+</resources>

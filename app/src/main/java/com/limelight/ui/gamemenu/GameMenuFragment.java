@@ -174,7 +174,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.btn_soft_function){
             GameFunctionFragment fragment=new GameFunctionFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("操作");
+            fragment.setTitle("Aktion");
             fragment.setOnClick(new GameFunctionFragment.onClick() {
                 @Override
                 public void click(String title, int index) {
@@ -353,7 +353,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.bt_quick_list){
             GameListQuickFragment fragment=new GameListQuickFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("快捷键(字体倾斜项可长按删除)");
+            fragment.setTitle("Tastenkürzel (kursive Einträge lange drücken zum Löschen)");
             if(game!=null){
                 fragment.setEnableClearDefaultSpecial(game.prefConfig.enableClearDefaultSpecial);
             }
@@ -388,7 +388,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
             // EXTENSION DEVELOPMENT [EXT-TOUCHPAD-MULTI-GESTURE] [MODIFIED] END
             GameListMouseFragment fragment=new GameListMouseFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("鼠标与触控");
+            fragment.setTitle("Maus und Touch");
             fragment.setOnClick(new GameListMouseFragment.onClick() {
                 @Override
                 public void click(String title, int index) {
@@ -405,7 +405,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
                     }
                     if(index==mouseModeCount + 1){
                         game.prefConfig.absoluteMouseMode=!game.prefConfig.absoluteMouseMode;
-                        Toast.makeText(getActivity(),"远程桌面鼠标模式"+(game.prefConfig.absoluteMouseMode?"已启用！":"已禁用！"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Remote-Desktop-Mausmodus"+(game.prefConfig.absoluteMouseMode?"Aktiviert!":"Deaktiviert!"),Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(index==mouseModeCount + 2){
@@ -425,7 +425,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.bt_touch_sensitivity){
             GameTouchFragment fragment=new GameTouchFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("触控灵敏度");
+            fragment.setTitle("Touch-Empfindlichkeit");
             fragment.setPrefConfig(game==null?new PreferenceConfiguration():game.prefConfig);
             fragment.show(getFragmentManager());
             return;
@@ -434,7 +434,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.bt_display){
             GameDisplayFragment fragment=new GameDisplayFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("显示");
+            fragment.setTitle("Anzeige");
             fragment.setOnClick(new GameDisplayFragment.onClick() {
                 @Override
                 public void click() {
@@ -452,7 +452,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.bt_device){
             GameDisplayDeviceFragment fragment=new GameDisplayDeviceFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("外设");
+            fragment.setTitle("Peripherie");
             fragment.setOnClick((index, flag) -> {
                 if(index==1){
                     game.setDualSenseTrigger();
@@ -466,7 +466,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId() == R.id.bt_audio_rumble){
             GameAudioHapticsFragment fragment = new GameAudioHapticsFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("音频震动");
+            fragment.setTitle("Audio-Vibration");
             fragment.setOnSettingsChangedListener(() -> {
                 if (game != null) {
                     game.setAudioHapticsSettings();
@@ -480,7 +480,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId() == R.id.bt_other_setting){
             GameDisplaySettingFragment fragment=new GameDisplaySettingFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("杂项");
+            fragment.setTitle("Sonstiges");
             fragment.setOnClick(new GameDisplaySettingFragment.onClick() {
                 @Override
                 public void click(int index,boolean flag) {
@@ -536,7 +536,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
         if(v.getId()==R.id.bt_virtual_view){
             GameMenuVirtualViewFragment fragment=new GameMenuVirtualViewFragment();
             fragment.setWidth(UiHelper.dpToPx(getActivity(),364));
-            fragment.setTitle("虚拟手柄与虚拟按键");
+            fragment.setTitle("Virtueller Controller und virtuelle Tasten");
             fragment.setGamePadMode(game==null? KeyBoardController.ControllerMode.NONE:game.getVirtualControllerMode());
             fragment.setGameKeyMode(game==null? KeyBoardController.ControllerMode.NONE:game.getVirtualKeyControllerMode());
             fragment.setPrefConfig(game==null?new PreferenceConfiguration():game.prefConfig);
@@ -549,7 +549,7 @@ public class GameMenuFragment extends BaseGameMenuDialog implements View.OnClick
                         return;
                     }
                     game.updateVirtualView();
-//                    Toast.makeText(getActivity(),"更新成功！",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(),"Erfolgreich aktualisiert!",Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

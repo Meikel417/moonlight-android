@@ -296,7 +296,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
     private String getRecentHapticsRoute(String route, long outputTimeMs) {
         if (route == null || route.isEmpty() || outputTimeMs <= 0L ||
                 SystemClock.uptimeMillis() - outputTimeMs > HAPTICS_ROUTE_RECENT_MS) {
-            return "待触发";
+            return "Wartet auf Auslösung";
         }
         return route;
     }
@@ -325,7 +325,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
         if (name.contains("kishi")) {
             return "Kishi";
         }
-        return "手柄";
+        return "Controller";
     }
 
     private String getUsbControllerTypeDisplayName(AbstractController controller) {
@@ -419,7 +419,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
         }
 
         if (!outputDevices.isEmpty()) {
-            markAudioHapticsOutput("普通震动", outputDevices);
+            markAudioHapticsOutput("Normale Vibration", outputDevices);
         }
         return vibrated;
     }
@@ -462,7 +462,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
 
         if (submitted) {
             if (outputDevices.isEmpty()) {
-                addOutputDevice(outputDevices, "USB手柄");
+                addOutputDevice(outputDevices, "USB-Controller");
             }
             markAudioHapticsOutput("PCM", outputDevices);
         }
@@ -700,7 +700,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
     /**
      * Explicitly clears every haptics route while the device handles are still valid.
      * This deliberately uses the normal zero-rumble path so the optional 1 ms
-     * "震动停止方案A" compatibility pulse is preserved for the device vibrator.
+     * "Vibrations-Stopp Variante A" compatibility pulse is preserved for the device vibrator.
      */
     public synchronized void stopAllHaptics() {
         if (stopped) {
@@ -3162,7 +3162,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
             if (!foundMatchingDevice && prefConfig.onscreenController && !prefConfig.onlyL3R3 && PreferenceConfiguration.readPreferences(activityContext).vibrateOsc) {
                 rumbleSingleVibrator(deviceVibrator, lowFreqMotor, highFreqMotor);
                 if (hasRumbleAmplitude(lowFreqMotor, highFreqMotor)) {
-                    addOutputDevice(outputDevices, "手机");
+                    addOutputDevice(outputDevices, "Handy");
                 }
             }
             else if (foundMatchingDevice && !vibrated && prefConfig.vibrateFallbackToDevice) {
@@ -3179,13 +3179,13 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
 
                 rumbleSingleVibrator(deviceVibrator, lowFreqMotorAdjusted, highFreqMotorAdjusted);
                 if (hasRumbleAmplitude(lowFreqMotorAdjusted, highFreqMotorAdjusted)) {
-                    addOutputDevice(outputDevices, "手机");
+                    addOutputDevice(outputDevices, "Handy");
                 }
             }
         }
 
         if (!outputDevices.isEmpty()) {
-            markNativeGameHapticsOutput("普通震动", outputDevices);
+            markNativeGameHapticsOutput("Normale Vibration", outputDevices);
         }
     }
 
@@ -3749,7 +3749,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
 
         if (submitted) {
             lastNativeControllerPcmTimeMs = SystemClock.uptimeMillis();
-            markNativeGameHapticsOutput("原生PCM", outputDevices);
+            markNativeGameHapticsOutput("Natives PCM", outputDevices);
         }
         return submitted;
     }
@@ -4524,7 +4524,7 @@ public class ControllerHandler implements InputManager.InputDeviceListener, UsbD
     /** Privacy-safe summary for distinguishing Android system input from app-owned USB drivers. */
     public synchronized String getSystemControllerDiagnosticsDisplayName() {
         if (inputDeviceContexts.size() == 0) {
-            return "无";
+            return "Keine";
         }
 
         StringBuilder summary = new StringBuilder();

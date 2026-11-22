@@ -427,10 +427,9 @@ public class PcView extends Activity {
 
         initializeViews();
 
-        if (!autoUpdateCheckStarted) {
-            autoUpdateCheckStarted = true;
-            UpdateChecker.checkForUpdates(this, false);
-        }
+        // Meikel-Fork: keine automatische Update-Suche, sonst wird die chinesische
+        // Originalversion angeboten. Updates kommen über die GitHub-Releases des Forks.
+        autoUpdateCheckStarted = true;
     }
 
     private void startComputerUpdates() {

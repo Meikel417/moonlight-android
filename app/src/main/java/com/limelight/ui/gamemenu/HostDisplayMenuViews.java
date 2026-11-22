@@ -58,7 +58,7 @@ final class HostDisplayMenuViews {
         row.setAlpha(enabled ? 1f : 0.45f);
         row.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         row.setContentDescription(title + (subtitle.isEmpty() ? "" : "，" + subtitle)
-                + (value.isEmpty() ? "" : "，" + value) + (selected ? "，已选中" : ""));
+                + (value.isEmpty() ? "" : "，" + value) + (selected ? ", ausgewählt" : ""));
         row.setOnClickListener(view -> { if (enabled) click.run(); });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(parent, 48));
         params.topMargin = dp(parent, 8);
