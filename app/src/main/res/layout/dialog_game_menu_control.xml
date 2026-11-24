@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="外设"
+            android:text="Peripherie"
             android:id="@+id/tx_title"
             android:textColor="@android:color/white"
             android:textSize="13dp" />
@@ -34,7 +34,7 @@
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="应用配置"
+            android:text="Konfiguration anwenden"
             android:visibility="visible"
             android:background="@drawable/ic_game_menu_btn_side_selector"
             android:layout_marginRight="5dp"
@@ -313,7 +313,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="手柄"
+                    android:text="Controller"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:textSize="12dp" />
@@ -321,7 +321,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="以下功能可能需要重新连接手柄生效！"
+                    android:text="Folgende Funktionen brauchen evtl. ein erneutes Verbinden des Controllers!"
                     android:textStyle="italic|bold"
                     android:textColor="#FFC107"
                     android:textSize="8dp" />
@@ -353,7 +353,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_usb"
-                        android:text="启用月光\nUSB手柄驱动"
+                        android:text="Moonlight-USB-\nController-Treiber"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -368,7 +368,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_grip"
-                        android:text="反转握把\n震动方向"
+                        android:text="Griff-Vibration\numkehren"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -383,7 +383,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_trigger"
-                        android:text="忽略扳机\n默认死区"
+                        android:text="Standard-Trigger-\nTotzone ignorieren"
                         android:textSize="8dp" />
 
                 </LinearLayout>
@@ -406,7 +406,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_battery"
-                        android:text="上报手柄\n电池状态"
+                        android:text="Controller-Akku\nmelden"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -421,7 +421,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_usb_gyroscope"
-                        android:text="启用USB驱动\n手柄陀螺仪"
+                        android:text="Gyro über USB-\nTreiber nutzen"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -436,7 +436,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_trigger_rumble"
-                        android:text="握把震动联动\n扳机震动"
+                        android:text="Griff-Vibration\nan Trigger koppeln"
                         android:textSize="8dp" />
 
 <!--                    <View-->
@@ -457,7 +457,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:text="以下功能需要重新打开串流页面生效！"
+                    android:text="Folgende Funktionen gelten erst nach erneutem Öffnen des Streams!"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:textSize="9dp" />
@@ -480,7 +480,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_shake"
-                        android:text="强制使用\n机身震动"
+                        android:text="Handy-Vibration\nerzwingen"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -495,7 +495,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_gyroscope"
-                        android:text="无手柄使用\n设备陀螺仪"
+                        android:text="Handy-Gyro ohne\nController nutzen"
                         android:textSize="8dp" />
 
                     <CheckBox
@@ -510,7 +510,7 @@
                         android:padding="4dp"
                         android:button="@null"
                         android:id="@+id/btn_game_joycon"
-                        android:text="兼容NS\n手柄按键"
+                        android:text="Switch-Tasten-\nbelegung"
                         android:textSize="8dp" />
 
                 </LinearLayout>
@@ -525,7 +525,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PS5手柄自适应扳机"
+                        android:text="Adaptive Trigger (PS5-Controller)"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:textSize="10dp" />
@@ -534,7 +534,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="右上角应用配置生效！(每次连接手动执行下)"
+                        android:text="Gilt nach Anwenden oben rechts! (bei jeder Verbindung einmal ausführen)"
                         android:textStyle="italic|bold"
                         android:textColor="#FFC107"
                         android:textSize="8dp" />
@@ -561,7 +561,7 @@
                         android:padding="4dp"
                         android:id="@+id/rbt_game_control_ds5_1"
                         android:button="@null"
-                        android:text="关闭"
+                        android:text="Schließen"
                         android:checked="true"
                         android:textSize="8dp" />
 
@@ -575,7 +575,7 @@
                         android:padding="4dp"
                         android:id="@+id/rbt_game_control_ds5_2"
                         android:button="@null"
-                        android:text="阻尼"
+                        android:text="Dämpfung"
                         android:textSize="8dp" />
 
                     <RadioButton
@@ -588,7 +588,7 @@
                         android:padding="4dp"
                         android:id="@+id/rbt_game_control_ds5_3"
                         android:button="@null"
-                        android:text="扳机"
+                        android:text="Trigger"
                         android:textSize="8dp" />
 
                     <RadioButton
@@ -601,7 +601,7 @@
                         android:padding="4dp"
                         android:id="@+id/rbt_game_control_ds5_4"
                         android:button="@null"
-                        android:text="自动步枪扳机"
+                        android:text="Dauerfeuer-Trigger"
                         android:textSize="8dp" />
 
                 </RadioGroup>
@@ -614,7 +614,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="震动强度"
+                        android:text="Vibrationsstärke"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:textSize="8dp" />
@@ -644,7 +644,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="震动频率"
+                        android:text="Vibrationsfrequenz"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:textSize="8dp" />
@@ -674,7 +674,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="起始位置"
+                        android:text="Startposition"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:textSize="8dp" />
@@ -704,7 +704,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="结束位置"
+                        android:text="Endposition"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:textSize="8dp" />

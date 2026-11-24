@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="touchpad_rotation_title">Touchpad-Ausrichtung</string>
+    <string name="touchpad_rotation_description">Korrigiert die Ausrichtung eines externen Touchpads, sofort wirksam; Winkel gegen den Uhrzeigersinn.</string>
+    <string name="touchpad_rotation_normal">Normal</string>
+    <string name="mouse_rotation_title">Ausrichtung der Maus</string>
+    <string name="mouse_rotation_description">Korrigiert die Bewegungsrichtung einer externen Maus, sofort wirksam; Winkel gegen den Uhrzeigersinn.</string>
+</resources>

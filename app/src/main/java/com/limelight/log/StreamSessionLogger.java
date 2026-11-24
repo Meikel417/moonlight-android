@@ -69,41 +69,41 @@ public final class StreamSessionLogger {
         ACTIVE_FILES.add(file.getAbsolutePath());
         previousExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         exceptionHandler = (thread, throwable) -> {
-            error("CRASH", "Java 未捕获异常，线程=" + thread.getName(), throwable);
-            close("Java 异常退出");
+            error("CRASH", "Nicht abgefangene Java-Ausnahme, Thread=" + thread.getName(), throwable);
+            close("Java-Absturz");
             if (previousExceptionHandler != null) {
                 previousExceptionHandler.uncaughtException(thread, throwable);
             }
         };
         Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
 
-        writeRawDirect("Moonlight 串流会话日志");
-        writeRawDirect("日志格式: " + LOG_FORMAT_VERSION);
-        writeRawDirect("应用版本: " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
-        writeRawDirect("设备: " + Build.MANUFACTURER + " " + Build.MODEL + ", Android " + Build.VERSION.RELEASE
+        writeRawDirect("Moonlight-Streaming-Sitzungslog");
+        writeRawDirect("Log-Format:" + LOG_FORMAT_VERSION);
+        writeRawDirect("App-Version:" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+        writeRawDirect("Gerät:" + Build.MANUFACTURER + " " + Build.MODEL + ", Android " + Build.VERSION.RELEASE
                 + " (API " + Build.VERSION.SDK_INT + "), ABI " + firstAbi());
-        writeRawDirect("目标: " + safe(pcName) + " / " + safe(appName));
+        writeRawDirect("Ziel:" + safe(pcName) + " / " + safe(appName));
         writeRawDirect(String.format(Locale.US,
-                "配置: %dx%d@%d, 码率=%d Kbps, HDR=%s, USB驱动=%s, 音频震动=%s",
+                "Konfiguration: %dx%d@%d, Bitrate=%d Kbps, HDR=%s, USB-Treiber=%s, Audio-Vibration=%s",
                 config.width, config.height, config.fps, config.bitrate,
                 onOff(config.enableHdr), onOff(config.usbDriver),
                 onOff(config.enableAudioHaptics)));
-        writeRawDirect("控制连接: 触控卡顿兼容=" + onOff(config.touchStutterCompatibility)
-                + ", 请求RTT容忍=" + (config.touchStutterCompatibility ? 10 : 0) + " ms");
-        writeRawDirect("触觉: 音频输出=" + safe(config.audioHapticsOutputTarget)
-                + ", 强度=" + config.audioHapticsStrength + "%"
-                + ", 保留普通震动=" + onOff(config.audioHapticsKeepControllerRumble));
+        writeRawDirect("Steuerverbindung: Touch-Ruckel-Kompatibilität=" + onOff(config.touchStutterCompatibility)
+                + ", RTT-Toleranz=" + (config.touchStutterCompatibility ? 10 : 0) + " ms");
+        writeRawDirect("Haptik: Audioausgabe=" + safe(config.audioHapticsOutputTarget)
+                + ", Stärke=" + config.audioHapticsStrength + "%"
+                + ", normale Vibration behalten=" + onOff(config.audioHapticsKeepControllerRumble));
         boolean explicitDs5 = PreferenceConfiguration.GAMEPAD_EMULATION_DS5.equals(
                 PreferenceConfiguration.normalizeGamepadEmulation(config.gamepadEmulation));
-        writeRawDirect("手柄: 串流类型=" + safe(config.gamepadEmulation)
-                + ", 原生DS5触觉PCM=" + onOff(explicitDs5 && config.ds5NativePcmEnabled)
-                + ", DS5扬声器=" + onOff(explicitDs5 && config.ds5ControllerSpeakerEnabled));
+        writeRawDirect("Controller: Stream-Typ=" + safe(config.gamepadEmulation)
+                + ", native DS5-Haptik-PCM=" + onOff(explicitDs5 && config.ds5NativePcmEnabled)
+                + ", DS5-Lautsprecher=" + onOff(explicitDs5 && config.ds5ControllerSpeakerEnabled));
         writeRawDirect("------------------------------------------------------------");
 
         writerThread = new Thread(this::runWriter, "StreamSessionLogger");
         writerThread.setDaemon(true);
         writerThread.start();
-        info("SESSION", "会话日志开始");
+        info("SESSION", "Sitzungslog gestartet");
     }
 
     public void info(String category, String message) {
@@ -262,7 +262,7 @@ public final class StreamSessionLogger {
         if (dropped > 0L) {
             writeLine(timestamp(System.currentTimeMillis()) + " [WARN] [LOGGER] [t="
                     + (SystemClock.elapsedRealtime() - sessionStartElapsedMs)
-                    + "ms] 日志队列拥塞，已丢弃低优先级记录=" + dropped, true);
+                    + "ms] Log-Warteschlange überlastet, Einträge mit niedriger Priorität verworfen=" + dropped, true);
         }
     }
 
@@ -271,7 +271,7 @@ public final class StreamSessionLogger {
             sessionLimitReported = true;
             writeLine(timestamp(System.currentTimeMillis()) + " [WARN] [LOGGER] [t="
                     + (SystemClock.elapsedRealtime() - sessionStartElapsedMs)
-                    + "ms] 单会话日志达到 8 MiB 上限，已省略普通记录="
+                    + "ms] Sitzungslog hat die 8-MiB-Grenze erreicht, normale Einträge ausgelassen="
                     + sessionLimitDroppedRecords, true);
         }
     }
@@ -305,7 +305,7 @@ public final class StreamSessionLogger {
     }
 
     private static String onOff(boolean enabled) {
-        return enabled ? "开" : "关";
+        return enabled ? "An" : "Aus";
     }
 
     private static String firstAbi() {

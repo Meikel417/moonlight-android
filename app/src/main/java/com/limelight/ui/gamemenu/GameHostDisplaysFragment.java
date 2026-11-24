@@ -71,7 +71,7 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
     /** Keep HTTP off the UI thread, suspend polling behind a choice sheet and reject stale replies. */
     private void load(JSONObject operation, GameHostDisplayChoiceFragment choice) {
         if (busy || content == null || !(getActivity() instanceof Game)) {
-            if (choice != null) choice.complete(false, "正在读取显示器，请稍后重试");
+            if (choice != null) choice.complete(false, "Monitore werden gelesen, bitte gleich nochmal versuchen");
             return;
         }
         if (operation == null && choicesOpen()) return;
@@ -80,7 +80,7 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
         int requestGeneration = generation;
         Game game = (Game) getActivity();
         if (operation != null) showStatus(captureSwitch.isPending()
-                ? "正在切换串流显示器…" : "正在应用主机显示设置…");
+                ? "Wechsle Stream-Monitor…" : "Wende Host-Anzeigeeinstellungen an…");
         worker.execute(() -> {
             JSONObject inventory = null;
             String failure = null;
@@ -89,18 +89,18 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
                 if (operation != null) {
                     JSONObject applied = game.requestHostDisplays(operation);
                     if (!applied.optBoolean("status")) {
-                        failure = applied.optString("message", "主机拒绝了这项设置");
+                        failure = applied.optString("message", "Der Host hat diese Einstellung abgelehnt");
                     }
                 }
                 inventory = game.requestHostDisplays(null);
                 if (!inventory.optBoolean("status")) {
-                    throw new java.io.IOException(inventory.optString("message", "无法读取显示器"));
+                    throw new java.io.IOException(inventory.optString("message", "Monitore konnten nicht gelesen werden"));
                 }
             } catch (Exception error) {
                 legacyHost = operation == null && error instanceof HostDisplayApiUnavailableException;
                 failure = error instanceof java.io.FileNotFoundException
-                        ? "请更新 StarCore星核 PC 端以使用显示器管理"
-                        : error.getMessage() == null ? "无法连接主机" : error.getMessage();
+                        ? "Bitte StarCore auf dem PC aktualisieren, um die Monitorverwaltung zu nutzen"
+                        : error.getMessage() == null ? "Verbindung zum Host nicht möglich" : error.getMessage();
             }
             JSONObject result = inventory;
             String error = failure;
@@ -123,7 +123,7 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
                 }
                 if (error != null) {
                     captureSwitch.failed();
-                    showStatus("读取或应用失败：" + error + "，可点击刷新重试");
+                    showStatus("Lesen oder Anwenden fehlgeschlagen:" + error + ", tippe auf Aktualisieren");
                     render();
                     if (choice != null) choice.complete(false, error);
                     return;
@@ -141,16 +141,16 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
                 if (switched == HostDisplayCaptureState.Result.UNAVAILABLE
                         || switched == HostDisplayCaptureState.Result.TIMED_OUT) {
                     showStatus(switched == HostDisplayCaptureState.Result.UNAVAILABLE
-                            ? "目标显示器已断开，未完成切换，可点击刷新重试"
-                            : "切换尚未完成，请确认当前串流画面后刷新重试");
+                            ? "Zielmonitor getrennt, Wechsel nicht abgeschlossen. Tippe auf Aktualisieren"
+                            : "Wechsel noch nicht abgeschlossen, bitte Stream-Bild prüfen und neu laden");
                     render();
                     return;
                 }
                 if (captureSwitch.isPending()) {
-                    showStatus("正在切换串流显示器…");
+                    showStatus("Wechsle Stream-Monitor…");
                 } else {
                     status.setVisibility(devices.length() == 0 ? View.VISIBLE : View.GONE);
-                    status.setText("PC 当前没有可用显示器");
+                    status.setText("Der PC hat gerade keinen verfügbaren Monitor");
                 }
                 if (!devices.toString().equals(lastInventory) || operation != null || content.getChildCount() == 0
                         || switched == HostDisplayCaptureState.Result.COMPLETE) {
@@ -190,33 +190,33 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
         content.removeAllViews();
         JSONObject device = selected();
         if (device == null) return;
-        HostDisplayMenuViews.section(content, "显示器");
+        HostDisplayMenuViews.section(content, "Monitor");
         for (int i = 0; i < devices.length(); i++) {
             JSONObject row = devices.optJSONObject(i);
             if (row == null) continue;
             String id = row.optString("device_id");
-            String detail = row.optBoolean("primary") ? "主屏" : "";
-            if (row.optBoolean("capturing")) detail += (detail.isEmpty() ? "" : " · ") + "正在串流";
-            if (!row.optBoolean("active")) detail += (detail.isEmpty() ? "" : " · ") + "未启用";
-            HostDisplayMenuViews.row(content, row.optString("name", "显示器"), detail, "", "device-" + id,
+            String detail = row.optBoolean("primary") ? "Hauptbildschirm" : "";
+            if (row.optBoolean("capturing")) detail += (detail.isEmpty() ? "" : " · ") + "Streamt gerade";
+            if (!row.optBoolean("active")) detail += (detail.isEmpty() ? "" : " · ") + "Nicht aktiviert";
+            HostDisplayMenuViews.row(content, row.optString("name", "Monitor"), detail, "", "device-" + id,
                     row.optBoolean("active") && row.optBoolean("capturing"), false,
                     row.optBoolean("active") && !captureSwitch.isPending(),
                     () -> submitCapture(id, row.optBoolean("active"), row.optBoolean("capturing")));
         }
-        HostDisplayMenuViews.section(content, "显示参数");
+        HostDisplayMenuViews.section(content, "Anzeigeparameter");
         boolean active = device.optBoolean("active");
         boolean editable = active && !captureSwitch.isPending();
         JSONArray modes = device.optJSONArray("modes");
         boolean hasModes = editable && modes != null && modes.length() > 0;
-        parameter("分辨率", active ? device.optInt("width") + " × " + device.optInt("height") : "未启用",
+        parameter("Auflösung", active ? device.optInt("width") + " × " + device.optInt("height") : "Nicht aktiviert",
                 "resolution", hasModes);
-        parameter("刷新率", active ? hz(device.optDouble("refresh_hz")) + " Hz" : "未启用", "refresh", hasModes);
+        parameter("Bildwiederholrate", active ? hz(device.optDouble("refresh_hz")) + " Hz" : "Nicht aktiviert", "refresh", hasModes);
         JSONArray scales = device.optJSONArray("scale_options");
-        parameter("缩放比例", device.isNull("scale_percent") ? "不可用" : device.optInt("scale_percent") + "%",
+        parameter("Skalierung", device.isNull("scale_percent") ? "Nicht verfügbar" : device.optInt("scale_percent") + "%",
                 "scale", editable && scales != null && scales.length() > 0);
         boolean hdr = device.optBoolean("hdr_supported");
-        parameter("HDR", hdr ? device.optBoolean("hdr_enabled") ? "开启" : "关闭" : "不支持", "hdr", editable && hdr);
-        HostDisplayMenuViews.note(content, "以上设置作用于 PC 显示器，与串流分辨率和帧率分别设置。");
+        parameter("HDR", hdr ? device.optBoolean("hdr_enabled") ? "Einschalten" : "Schließen" : "Nicht unterstützt", "hdr", editable && hdr);
+        HostDisplayMenuViews.note(content, "Diese Einstellungen gelten für den PC-Monitor und sind getrennt von Stream-Auflösung und FPS.");
         if (focusedTag != null) {
             View restored = content.findViewWithTag(focusedTag);
             if (restored != null) restored.requestFocus();
@@ -265,7 +265,7 @@ public class GameHostDisplaysFragment extends BaseGameMenuDialog {
             load(operation, null);
         } catch (JSONException error) {
             captureSwitch.failed();
-            showStatus("显示设置参数无效");
+            showStatus("Ungültige Anzeigeeinstellungen");
         }
     }
 

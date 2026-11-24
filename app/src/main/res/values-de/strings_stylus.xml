@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stylus_mode_title">Stift-Modus</string>
+    <string name="stylus_follow">Wie Touch-Modus</string>
+    <string name="stylus_native">Nativer Stift</string>
+    <string name="stylus_mouse">Maus</string>
+    <string name="stylus_follow_description">Verhält sich wie der aktuelle Touch-Modus; bei Multitouch als Touch-Eingabe.</string>
+    <string name="stylus_native_description">Sendet Schweben, Druck und Neigung; nutzt die Maus, wenn der Host das nicht unterstützt.</string>
+    <string name="stylus_mouse_description">Stiftspitze zeigt, Aufsetzen und Ziehen hält die linke Maustaste, Anheben lässt los.</string>
+</resources>

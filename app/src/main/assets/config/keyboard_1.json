@@ -1,34 +1,34 @@
 {
-  "desc": "rocker=摇杆|dpad=十字键|keystroke=普通按钮",
+  "desc": "rocker=Stick|dpad=Steuerkreuz|keystroke=normale Taste",
   "data": {
     "rocker": [
       {
-        "name": "摇杆",
+        "name": "Stick",
         "elementId": "rocker_1",
         "leftCode": 29,
         "rightCode": 32,
         "upCode": 51,
         "downCode": 47,
         "middleCode": 59,
-        "desc":"简单描述下，上下左右中按键code值为keycode查阅附赠的keycode-android.java文件获取，elementId值是唯一的,middleCode是中键的小圆点，双击可以触发"
+        "desc":"Kurz erklärt: Die Codes für oben/unten/links/rechts/Mitte sind Android-Keycodes (siehe keycode-android.java), elementId muss eindeutig sein, middleCode ist der Punkt in der Mitte und wird per Doppeltippen ausgelöst"
       }
     ],
     "dpad": [
       {
-        "name": "十字键",
+        "name": "Steuerkreuz",
         "elementId": "dpad_1",
         "leftCode": 29,
         "rightCode": 32,
         "upCode": 51,
         "downCode": 47,
-        "desc":"简单描述下，上下左右按键code值为keycode查阅附赠的keycode-android.java文件获取，elementId值是唯一的"
+        "desc":"Kurz erklärt: Die Codes für oben/unten/links/rechts sind Android-Keycodes (siehe keycode-android.java), elementId muss eindeutig sein"
       }
     ],
     "mouse": [
       {
         "name": "ML",
         "code": 1,
-        "desc":"简单描述下，code值固定，name为按钮显示文字，ML左键、MM中键、MR右键"
+        "desc":"Kurz erklärt: code ist fest, name ist die Beschriftung, ML Linksklick, MM Mitteltaste, MR Rechtsklick"
       },
       {
         "name": "MR",
@@ -52,29 +52,29 @@
         "code": 5
       },
       {
-        "name": "触控板(右)",
+        "name": "Touchpad (rechts)",
         "code": 9,
-        "desc": "特殊触控板按键适合魔兽转视野，name的数值可以清空，但是怕不好区分，可以修改成其他的"
+        "desc": "Spezielle Touchpad-Taste, z. B. zum Drehen der Kamera; name kann leer sein oder beliebig geändert werden"
       },
       {
-        "name": "触控板",
+        "name": "Touchpad",
         "code": 10,
-        "desc": "普通触控板控件"
+        "desc": "Normales Touchpad-Element"
       },
       {
-        "name": "触控板(左)",
+        "name": "Touchpad (links)",
         "code": 11,
-        "desc": "一直按着左键不放~"
+        "desc": "Linke Taste dauerhaft gedrückt~"
       },
       {
-        "name": "触控板(中)",
+        "name": "Touchpad (Mitte)",
         "code": 12,
-        "desc": "一直按着鼠标中键不放~"
+        "desc": "Mitteltaste dauerhaft gedrückt~"
       },
       {
-        "name": "触控板(无)",
+        "name": "Touchpad (keine)",
         "code": 13,
-        "desc": "普通触控板控件没有点击事件"
+        "desc": "Normales Touchpad-Element ohne Klick"
       }
     ],
     "keystroke": [
