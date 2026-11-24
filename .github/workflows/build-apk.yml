@@ -3,6 +3,7 @@ name: APK bauen
 on:
   push:
     branches: [ master, main ]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -40,6 +41,7 @@ jobs:
           path: out/*.apk
 
       - name: Release veröffentlichen
+        if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
