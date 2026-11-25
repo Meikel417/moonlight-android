@@ -73,4 +73,21 @@
         <item name="android:windowExitAnimation">@anim/boxart_fadeout</item>
     </style>
 
+    <style name="HubChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_hub_chip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/hub_text_gedimmt</item>
+    </style>
+
+    <style name="HubTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/hub_hintergrund</item>
+    </style>
 </resources>

@@ -7,6 +7,14 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Nur um den Namen des WLANs zu lesen (Heim-WLAN-Erkennung im Hub) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Hub darf Tailscale finden und starten -->
+    <queries>
+        <package android:name="com.tailscale.ipn" />
+    </queries>
     <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA"/>
     <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA"/>
 
@@ -97,6 +105,15 @@
             <meta-data android:name="WindowManagerPreference:FreeformWindowSize" android:value="system-default" />
             <meta-data android:name="WindowManagerPreference:FreeformWindowOrientation" android:value="landscape" />
 
+        </activity>
+
+        <!-- Hub-Startbildschirm: ist jetzt das, was beim Antippen des App-Symbols aufgeht -->
+        <activity
+            android:name=".hub.HubActivity"
+            android:exported="true"
+            android:theme="@style/HubTheme"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

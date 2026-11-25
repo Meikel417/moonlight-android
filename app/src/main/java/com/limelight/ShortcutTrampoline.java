@@ -164,9 +164,10 @@ public class ShortcutTrampoline extends Activity {
                                                 // Close this activity
                                                 finish();
 
-                                                // Add the PC view at the back (and clear the task)
+                                                // Hub-Startbildschirm ganz nach hinten (und Task leeren),
+                                                // damit "Zurück" wieder im Hub landet
                                                 Intent i;
-                                                i = new Intent(ShortcutTrampoline.this, PcView.class);
+                                                i = new Intent(ShortcutTrampoline.this, com.limelight.hub.HubActivity.class);
                                                 i.setAction(Intent.ACTION_MAIN);
                                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 intentStack.add(i);
