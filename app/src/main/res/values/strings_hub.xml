@@ -14,7 +14,7 @@
     <string name="hub_wlan_heim">● Heim-WLAN</string>
     <string name="hub_wlan_fremd">○ fremdes WLAN</string>
     <string name="hub_wlan_keins">○ kein WLAN</string>
-    <string name="hub_wlan_unbekannt">? WLAN</string>
+    <string name="hub_wlan_unbekannt">\? WLAN</string>
     <string name="hub_wlan_keins_hinweis">Du bist gerade mit keinem WLAN verbunden.</string>
     <string name="hub_wlan_dialog_titel">Heim-WLAN</string>
     <string name="hub_wlan_berechtigung">Damit der Hub erkennt, ob du zu Hause bist, braucht er den Namen des WLANs. Android gibt den nur mit Standort-Berechtigung heraus. Der Standort selbst wird nicht benutzt.</string>
