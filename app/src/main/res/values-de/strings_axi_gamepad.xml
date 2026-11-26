@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Deutsche Texte für die Controller-Werkzeuge (Bibliothek axi_gamepad.aar).
      Gleiche Namen wie in der Bibliothek, dadurch werden deren chinesische Texte ersetzt. -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources,ExtraTranslation">
     <string name="app_name">Controller-Werkzeuge</string>
     <string name="about_update_text"><u>Neue Version holen</u></string>
     <string name="axi_audio_background">Dauerhafte Hintergrundgeräusche dämpfen</string>
