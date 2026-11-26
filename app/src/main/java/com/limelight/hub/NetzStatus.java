@@ -14,6 +14,10 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Prüft, ob das Handy im Heim-WLAN ist oder Tailscale (VPN) läuft,
  * und kann Tailscale einschalten bzw. öffnen.
@@ -21,7 +25,8 @@ import android.os.Build;
 public final class NetzStatus {
     public static final String TAILSCALE_PAKET = "com.tailscale.ipn";
     private static final String PREFS = "hub_einstellungen";
-    private static final String KEY_HEIM_WLAN = "heim_wlan_ssid";
+    private static final String KEY_HEIM_WLAN_ALT = "heim_wlan_ssid";
+    private static final String KEY_HEIM_WLANS = "heim_wlans";
 
     private NetzStatus() {}
 
@@ -92,17 +97,34 @@ public final class NetzStatus {
         return ssid;
     }
 
-    public static String heimWlan(Context ctx) {
-        return prefs(ctx).getString(KEY_HEIM_WLAN, null);
+    /** Alle gespeicherten Heim-WLANs (es kann mehrere geben). */
+    public static Set<String> heimWlans(Context ctx) {
+        SharedPreferences p = prefs(ctx);
+        Set<String> liste = new TreeSet<>(p.getStringSet(KEY_HEIM_WLANS, new HashSet<String>()));
+        // Alte Version hat nur ein einziges Heim-WLAN gespeichert
+        String alt = p.getString(KEY_HEIM_WLAN_ALT, null);
+        if (alt != null) {
+            liste.add(alt);
+            p.edit().putStringSet(KEY_HEIM_WLANS, new HashSet<>(liste)).remove(KEY_HEIM_WLAN_ALT).apply();
+        }
+        return liste;
     }
 
-    public static void setHeimWlan(Context ctx, String ssid) {
-        prefs(ctx).edit().putString(KEY_HEIM_WLAN, ssid).apply();
+    public static void heimWlanHinzufuegen(Context ctx, String ssid) {
+        Set<String> liste = heimWlans(ctx);
+        liste.add(ssid);
+        prefs(ctx).edit().putStringSet(KEY_HEIM_WLANS, new HashSet<>(liste)).apply();
+    }
+
+    public static void heimWlanEntfernen(Context ctx, String ssid) {
+        Set<String> liste = heimWlans(ctx);
+        liste.remove(ssid);
+        prefs(ctx).edit().putStringSet(KEY_HEIM_WLANS, new HashSet<>(liste)).apply();
     }
 
     public static boolean imHeimWlan(Context ctx) {
-        String heim = heimWlan(ctx);
-        return heim != null && heim.equals(aktuellesWlan(ctx));
+        String aktuell = aktuellesWlan(ctx);
+        return aktuell != null && heimWlans(ctx).contains(aktuell);
     }
 
     /** Ist das Heimnetz erreichbar (Heim-WLAN oder Tailscale)? */

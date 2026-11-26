@@ -478,7 +478,7 @@
     <string name="home_add_host_subtitle">IP-Adresse oder Hostname eingeben</string>
     <string name="home_discovery_active">Suche im lokalen Netzwerk läuft</string>
     <string name="home_always_available">Immer verfügbar</string>
-    <string name="home_start_add">Host hinzufügen</string>
+    <string name="home_start_add">Adresse eingeben</string>
     <string name="home_current_device">Dieses Gerät</string>
     <string name="home_controller_waiting">Warte auf Controller</string>
     <string name="home_controller_waiting_detail">USB-, Bluetooth- oder eingebauten Controller verbinden</string>
