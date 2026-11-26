@@ -24,4 +24,16 @@
     <color name="home_destructive">#FF6B7A</color>
     <color name="home_border">#24FFFFFF</color>
     <color name="home_soft_border">#14FFFFFF</color>
+
+    <!-- Hub-Startbildschirm: dunkel mit Hellblau -->
+    <color name="hub_hintergrund">#0B0F14</color>
+    <color name="hub_flaeche">#151B23</color>
+    <color name="hub_flaeche_hell">#1C2632</color>
+    <color name="hub_rand">#22FFFFFF</color>
+    <color name="hub_text">#EAF2F8</color>
+    <color name="hub_text_gedimmt">#8A9AAB</color>
+    <color name="hub_akzent">#5BC0EB</color>
+    <color name="hub_akzent_dunkel">#1E3A4C</color>
+    <color name="hub_ok">#4CD69B</color>
+    <color name="hub_warnung">#FFB454</color>
 </resources>

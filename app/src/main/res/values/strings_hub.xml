@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!-- Hub-Startbildschirm (bewusst nur auf Deutsch) -->
+    <string name="hub_titel">Hub</string>
+    <string name="hub_moonlight_ansicht">Alle Hosts</string>
+
+    <string name="hub_tailscale_an">● Tailscale an</string>
+    <string name="hub_tailscale_aus">○ Tailscale aus</string>
+    <string name="hub_tailscale_fehlt">Tailscale ist nicht installiert.</string>
+    <string name="hub_tailscale_verbinde">Tailscale wird eingeschaltet…</string>
+    <string name="hub_tailscale_selbst">Tailscale hat sich nicht selbst verbunden. Bitte in der App einschalten.</string>
+    <string name="hub_tailscale_einschalten">Tailscale an</string>
+
+    <string name="hub_wlan_heim">● Heim-WLAN</string>
+    <string name="hub_wlan_fremd">○ fremdes WLAN</string>
+    <string name="hub_wlan_keins">○ kein WLAN</string>
+    <string name="hub_wlan_unbekannt">\? WLAN</string>
+    <string name="hub_wlan_keins_hinweis">Du bist gerade mit keinem WLAN verbunden.</string>
+    <string name="hub_wlan_dialog_titel">Heim-WLAN</string>
+    <string name="hub_wlan_berechtigung">Damit der Hub erkennt, ob du zu Hause bist, braucht er den Namen des WLANs. Android gibt den nur mit Standort-Berechtigung heraus. Der Standort selbst wird nicht benutzt.</string>
+    <string name="hub_wlan_speichern_frage">„%1$s“ als Heim-WLAN speichern?</string>
+    <string name="hub_wlan_name_fehlt">Der WLAN-Name ist nicht lesbar. Ist der Standort am Handy eingeschaltet?</string>
+
+    <string name="hub_pc_keiner">○ kein PC an</string>
+    <string name="hub_pc_laeuft">● %1$s läuft</string>
+
+    <string name="hub_letzte_nachrichten">Letzte Nachrichten</string>
+    <string name="hub_letzte_nachrichten_leer">Noch nichts hier. Sobald die Sprachfunktion da ist, siehst du hier die letzten Chats mit deinen Claude-Sessions.</string>
+
+    <string name="hub_kachel_host_icon">🖥️</string>
+    <string name="hub_kachel_moonlight_icon">🌙</string>
+    <string name="hub_kachel_sprache_icon">🎙️</string>
+    <string name="hub_kachel_werkzeuge_icon">🧰</string>
+    <string name="hub_kachel_host_hinzufuegen">Host hinzufügen</string>
+    <string name="hub_kachel_host_hinzufuegen_info">PC in Moonlight koppeln</string>
+    <string name="hub_kachel_sprache">Sprache</string>
+    <string name="hub_kachel_werkzeuge">PC-Werkzeuge</string>
+    <string name="hub_bald_stufe2">kommt in Stufe 2</string>
+    <string name="hub_bald_stufe3">kommt in Stufe 3</string>
+    <string name="hub_sprache_bald">Die Sprachfunktion kommt in Stufe 3.</string>
+    <string name="hub_werkzeuge_bald">Dateien, Zwischenablage und Befehle kommen in Stufe 2.</string>
+
+    <string name="hub_host_laeuft">läuft · tippen = Desktop</string>
+    <string name="hub_host_aus">aus · tippen weckt ihn</string>
+    <string name="hub_host_pruefe">wird geprüft…</string>
+
+    <string name="hub_nicht_daheim_titel">Nicht im Heimnetz</string>
+    <string name="hub_nicht_daheim_text">Tailscale ist aus und du bist nicht im Heim-WLAN. So erreichst du deine PCs vermutlich nicht.</string>
+    <string name="hub_trotzdem">Trotzdem</string>
+    <string name="hub_abbrechen">Abbrechen</string>
+    <string name="hub_ok">OK</string>
+    <string name="hub_speichern">Speichern</string>
+</resources>
