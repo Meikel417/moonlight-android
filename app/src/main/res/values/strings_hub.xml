@@ -55,5 +55,18 @@
     <string name="hub_abbrechen">Abbrechen</string>
     <string name="hub_ok">OK</string>
     <string name="hub_neu">Neu</string>
+
+    <string name="hub_update_chip">⬆ Update</string>
+    <string name="hub_update_titel">Update</string>
+    <string name="hub_update_frage">Build %1$d ist da (installiert: Build %2$d). Jetzt herunterladen und installieren?</string>
+    <string name="hub_update_installieren">Installieren</string>
+    <string name="hub_update_spaeter">Später</string>
+    <string name="hub_update_erlaubnis">Damit der Hub Updates installieren darf, musst du das einmal in den Android-Einstellungen erlauben („Unbekannte Apps installieren“). Danach nochmal auf Update tippen.</string>
+    <string name="hub_update_einstellungen">Einstellungen öffnen</string>
+    <string name="hub_update_laedt">Neue Version wird heruntergeladen…</string>
+    <string name="hub_update_fehler">Update fehlgeschlagen. Später nochmal versuchen.</string>
+    <string name="hub_update_pruefe">Suche nach Updates…</string>
+    <string name="hub_update_aktuell">Du hast die neueste Version (Build %1$d).</string>
+    <string name="hub_update_nicht_erreichbar">GitHub ist gerade nicht erreichbar.</string>
     <string name="hub_speichern">Speichern</string>
 </resources>

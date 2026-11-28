@@ -28,7 +28,7 @@ jobs:
       - name: APK bauen
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon assembleNonRootRelease
+          ./gradlew --no-daemon assembleNonRootRelease -PhubBuild=${{ github.run_number }}
 
       - name: APK umbenennen
         run: |

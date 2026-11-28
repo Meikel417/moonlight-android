@@ -14,8 +14,12 @@ android {
         minSdk 21
         targetSdk 34
 
+        // Meikel-Fork: Build-Nummer von GitHub Actions (-PhubBuild=...), damit die App
+        // erkennt, ob es auf GitHub eine neuere Version gibt
+        def hubBuild = (project.findProperty("hubBuild") ?: "0").toString().toInteger()
         versionName "26.11.07"
-        versionCode = 500
+        versionCode = 500 + hubBuild
+        buildConfigField "int", "HUB_BUILD", hubBuild.toString()
         buildConfigField "int", "AXI_CODE", "31"
         buildConfigField "boolean", "HAS_KISHI_HAPTICS", gradle.ext.hasKishiHaptics.toString()
         buildConfigField "boolean", "HAS_STEREO3D_AI", gradle.ext.hasStereo3dAi.toString()

@@ -52,6 +52,7 @@ public class HubActivity extends Activity {
     private TextView chipWlan;
     private TextView chipPc;
     private LinearLayout kachelBereich;
+    private TextView updateChip;
 
     private ComputerManagerService.ComputerManagerBinder managerBinder;
     private boolean imVordergrund;
@@ -106,6 +107,11 @@ public class HubActivity extends Activity {
         chipTailscale.setOnClickListener(v -> tailscaleAntippen());
         chipWlan.setOnClickListener(v -> wlanAntippen());
         findViewById(R.id.hubMoonlightAnsicht).setOnClickListener(v -> oeffneMoonlightAnsicht());
+
+        // Update: beim Start still nachsehen, Titel antippen = von Hand nachsehen
+        updateChip = findViewById(R.id.hubUpdate);
+        findViewById(R.id.hubTitel).setOnClickListener(v -> pruefeUpdate(true));
+        pruefeUpdate(false);
 
         ladeGespeicherteComputer();
         baueKacheln();
@@ -482,6 +488,31 @@ public class HubActivity extends Activity {
             // Noch keine App-Liste gespeichert: dann öffnet sich die App-Liste
         }
         return null;
+    }
+
+    // ---------------------------------------------------------------- Update
+
+    private void pruefeUpdate(final boolean vonHand) {
+        if (vonHand) {
+            Toast.makeText(this, R.string.hub_update_pruefe, Toast.LENGTH_SHORT).show();
+        }
+        HubUpdater.pruefe(this, release -> {
+            if (release != null && release.istNeuer()) {
+                updateChip.setVisibility(View.VISIBLE);
+                updateChip.setOnClickListener(v -> HubUpdater.frageUndInstalliere(this, release));
+                if (vonHand) {
+                    HubUpdater.frageUndInstalliere(this, release);
+                }
+            } else {
+                updateChip.setVisibility(View.GONE);
+                if (vonHand) {
+                    Toast.makeText(this, release == null
+                            ? getString(R.string.hub_update_nicht_erreichbar)
+                            : getString(R.string.hub_update_aktuell, HubUpdater.installierterBuild()),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void oeffneMoonlightAnsicht() {
