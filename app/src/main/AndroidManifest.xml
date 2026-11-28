@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Hub-Updates aus den GitHub-Releases installieren (Android fragt trotzdem jedes Mal nach) -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <!-- Hub darf Tailscale finden und starten -->
     <queries>
         <package android:name="com.tailscale.ipn" />
