@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Deutsche Texte für die Controller-Werkzeuge (Bibliothek axi_gamepad.aar).
+     Gleiche Namen wie in der Bibliothek, dadurch werden deren chinesische Texte ersetzt. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources,ExtraTranslation">
+    <string name="app_name">Controller-Werkzeuge</string>
+    <string name="about_update_text"><u>Neue Version holen</u></string>
+    <string name="axi_audio_background">Dauerhafte Hintergrundgeräusche dämpfen</string>
+    <string name="axi_audio_background_hint">Weniger Vibration bei dauerhaften Hintergrundgeräuschen, plötzliche Lautstärkesprünge bleiben erhalten. Passt sich nach dem Start kurz an. Dauerhafte Effekte wie Motoren können schwächer werden, Musik-Beats lösen eventuell trotzdem Vibration aus.</string>
+    <string name="axi_audio_background_on">An</string>
+    <string name="axi_audio_badge">SYSTEM-AUDIO</string>
+    <string name="axi_audio_cancelled">Aufnahme des System-Audios wurde nicht erlaubt</string>
+    <string name="axi_audio_channel">Audio-Vibration</string>
+    <string name="axi_audio_desc">Wandelt Spiel- und Medien-Audio im Hintergrund in Vibration von Handy oder Controller um.</string>
+    <string name="axi_audio_failed">Audio-Aufnahme oder Vibration fehlgeschlagen. Berechtigungen und Ausgabegerät prüfen und erneut versuchen.</string>
+    <string name="axi_audio_hint">Läuft weiter, wenn du zum Startbildschirm oder in andere Apps wechselst; beenden über die Benachrichtigung. Nur aufnehmbare Wiedergabe wird verarbeitet. Kein Mikrofon-Audio, keine Aufnahmen werden gespeichert. Sperren des Geräts oder Entzug der Aufnahme kann die Sitzung beenden.</string>
+    <string name="axi_audio_idle">Nicht gestartet</string>
+    <string name="axi_audio_level">Audio %1$d%% · Vibration %2$d%%</string>
+    <string name="axi_audio_missing">Gewählter Controller getrennt</string>
+    <string name="axi_audio_notification">Wiedergabe-Audio wird in Vibration umgewandelt</string>
+    <string name="axi_audio_output_hint">Handy-Motor oder einen Controller mit System-Vibration wählen. Vor dem Gerätewechsel stoppen.</string>
+    <string name="axi_audio_permission">Für die Aufnahme der Wiedergabe ist die Audio-Berechtigung nötig</string>
+    <string name="axi_audio_phone">Handy-Motor</string>
+    <string name="axi_audio_ready">Handy / System-Controller</string>
+    <string name="axi_audio_redirect">System-Vibration ist umgeleitet, Handy-Vibration kann an einen Controller gehen</string>
+    <string name="axi_audio_removed">Ausgabe getrennt oder geändert. Sitzung beendet.</string>
+    <string name="axi_audio_response">Live-Reaktion</string>
+    <string name="axi_audio_revoked">System-Aufnahme beendet. Für einen Neustart erneut erlauben.</string>
+    <string name="axi_audio_running">Aufnahme läuft · Du kannst zum Spiel wechseln</string>
+    <string name="axi_audio_select">Ausgabegerät wählen</string>
+    <string name="axi_audio_silent">Kein Audio erkannt. Spiel oder Medien abspielen; manche Apps verhindern die Aufnahme.</string>
+    <string name="axi_audio_start">Audio-Vibration starten</string>
+    <string name="axi_audio_starting">Audio-Aufnahme startet…</string>
+    <string name="axi_audio_status">Sitzung</string>
+    <string name="axi_audio_stop">Audio-Vibration stoppen</string>
+    <string name="axi_audio_stopped">Gestoppt</string>
+    <string name="axi_audio_system_device">System-Controller · %1$s</string>
+    <string name="axi_audio_test_opened">Audio-Vibration für den Controller-Test gestoppt</string>
+    <string name="axi_audio_title">Audio-Vibration</string>
+    <string name="axi_audio_unavailable">Keine Vibrationsausgabe verfügbar</string>
+    <string name="axi_audio_unsupported">System-Audio-Aufnahme braucht Android 10 oder neuer</string>
+    <string name="axi_support_message">QR-Code scannen, um die Weiterentwicklung zu unterstützen. Danke!</string>
+    <string name="axi_support_qr">WeChat-QR-Code zum Unterstützen</string>
+    <string name="axi_support_title">Unterstützen</string>
+</resources>

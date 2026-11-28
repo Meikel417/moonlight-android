@@ -193,10 +193,10 @@ public class HubActivity extends Activity {
         setzeChip(chipTailscale, vpn ? getString(R.string.hub_tailscale_an) : getString(R.string.hub_tailscale_aus),
                 vpn ? R.color.hub_ok : R.color.hub_warnung);
 
-        String heim = NetzStatus.heimWlan(this);
+        boolean keinHeimWlan = NetzStatus.heimWlans(this).isEmpty();
         if (!NetzStatus.wlanVerbunden(this)) {
             setzeChip(chipWlan, getString(R.string.hub_wlan_keins), R.color.hub_text_gedimmt);
-        } else if (heim == null || !NetzStatus.standortErlaubt(this)) {
+        } else if (keinHeimWlan || !NetzStatus.standortErlaubt(this)) {
             setzeChip(chipWlan, getString(R.string.hub_wlan_unbekannt), R.color.hub_text_gedimmt);
         } else if (NetzStatus.imHeimWlan(this)) {
             setzeChip(chipWlan, getString(R.string.hub_wlan_heim), R.color.hub_ok);
@@ -280,17 +280,36 @@ public class HubActivity extends Activity {
         frageHeimWlanSpeichern();
     }
 
+    /** Zeigt die gespeicherten Heim-WLANs: aktuelles hinzufügen, gespeicherte antippen zum Entfernen. */
     private void frageHeimWlanSpeichern() {
         final String ssid = NetzStatus.aktuellesWlan(this);
+        final String[] liste = NetzStatus.heimWlans(this).toArray(new String[0]);
+
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle(R.string.hub_wlan_liste_titel)
+                .setNegativeButton(R.string.hub_schliessen, null);
+        if (liste.length == 0) {
+            b.setMessage(R.string.hub_wlan_liste_leer);
+        } else {
+            b.setItems(liste, (d, welches) -> frageHeimWlanEntfernen(liste[welches]));
+        }
         if (ssid == null) {
             Toast.makeText(this, R.string.hub_wlan_name_fehlt, Toast.LENGTH_LONG).show();
-            return;
+        } else if (!NetzStatus.heimWlans(this).contains(ssid)) {
+            b.setPositiveButton(getString(R.string.hub_wlan_hinzufuegen, ssid), (d, w) -> {
+                NetzStatus.heimWlanHinzufuegen(this, ssid);
+                zeigeNetzStatus();
+            });
         }
+        b.show();
+    }
+
+    private void frageHeimWlanEntfernen(final String ssid) {
         new AlertDialog.Builder(this)
-                .setTitle(R.string.hub_wlan_dialog_titel)
-                .setMessage(getString(R.string.hub_wlan_speichern_frage, ssid))
-                .setPositiveButton(R.string.hub_speichern, (d, w) -> {
-                    NetzStatus.setHeimWlan(this, ssid);
+                .setTitle(R.string.hub_wlan_liste_titel)
+                .setMessage(getString(R.string.hub_wlan_entfernen_frage, ssid))
+                .setPositiveButton(R.string.hub_entfernen, (d, w) -> {
+                    NetzStatus.heimWlanEntfernen(this, ssid);
                     zeigeNetzStatus();
                 })
                 .setNegativeButton(R.string.hub_abbrechen, null)
@@ -417,7 +436,7 @@ public class HubActivity extends Activity {
     /** Führt {@code aktion} aus, wenn das Heimnetz erreichbar ist; sonst wird nach Tailscale gefragt. */
     private void mitHeimnetz(final Runnable aktion) {
         boolean erreichbar = NetzStatus.vpnAktiv(this)
-                || (NetzStatus.heimWlan(this) == null ? NetzStatus.wlanVerbunden(this) : NetzStatus.imHeimWlan(this));
+                || (NetzStatus.heimWlans(this).isEmpty() ? NetzStatus.wlanVerbunden(this) : NetzStatus.imHeimWlan(this));
         if (erreichbar) {
             aktion.run();
             return;

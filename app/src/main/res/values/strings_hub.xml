@@ -18,7 +18,12 @@
     <string name="hub_wlan_keins_hinweis">Du bist gerade mit keinem WLAN verbunden.</string>
     <string name="hub_wlan_dialog_titel">Heim-WLAN</string>
     <string name="hub_wlan_berechtigung">Damit der Hub erkennt, ob du zu Hause bist, braucht er den Namen des WLANs. Android gibt den nur mit Standort-Berechtigung heraus. Der Standort selbst wird nicht benutzt.</string>
-    <string name="hub_wlan_speichern_frage">„%1$s“ als Heim-WLAN speichern?</string>
+    <string name="hub_wlan_liste_titel">Heim-WLANs</string>
+    <string name="hub_wlan_liste_leer">Noch kein Heim-WLAN gespeichert.</string>
+    <string name="hub_wlan_hinzufuegen">„%1$s“ hinzufügen</string>
+    <string name="hub_wlan_entfernen_frage">„%1$s“ aus den Heim-WLANs entfernen?</string>
+    <string name="hub_entfernen">Entfernen</string>
+    <string name="hub_schliessen">Schließen</string>
     <string name="hub_wlan_name_fehlt">Der WLAN-Name ist nicht lesbar. Ist der Standort am Handy eingeschaltet?</string>
 
     <string name="hub_pc_keiner">○ kein PC an</string>
@@ -49,5 +54,6 @@
     <string name="hub_trotzdem">Trotzdem</string>
     <string name="hub_abbrechen">Abbrechen</string>
     <string name="hub_ok">OK</string>
+    <string name="hub_neu">Neu</string>
     <string name="hub_speichern">Speichern</string>
 </resources>

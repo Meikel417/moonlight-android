@@ -272,7 +272,7 @@ final class HomeHostAdapter extends RecyclerView.Adapter<HomeHostAdapter.HostVie
     }
 
     private void bindAddCard(HostViewHolder holder) {
-        holder.badge.setText(R.string.home_add_host);
+        holder.badge.setText(R.string.hub_neu);
         holder.moreButton.setVisibility(View.GONE);
         holder.icon.setImageResource(R.drawable.icon_app_add_circle);
         holder.title.setText(R.string.home_add_host_title);
