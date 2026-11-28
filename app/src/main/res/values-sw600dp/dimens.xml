@@ -2,4 +2,5 @@
     <dimen name="keyboard_view_height">320dp</dimen>
     <dimen name="home_host_icon_size">104dp</dimen>
     <dimen name="home_host_icon_padding">27dp</dimen>
+    <dimen name="axi_gameplay_index_app_icon_size">32dp</dimen>
 </resources>

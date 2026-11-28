@@ -55,4 +55,6 @@
     <dimen name="home_host_status_gap">7dp</dimen>
     <dimen name="home_host_status_text_size">10sp</dimen>
     <dimen name="home_host_action_text_size">11sp</dimen>
+    <!-- aus axi_gamepad übernommen (Bibliothek entfernt) -->
+    <dimen name="axi_gameplay_index_app_icon_size">24dp</dimen>
 </resources>

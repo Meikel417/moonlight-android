@@ -91,7 +91,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import cn.axi.gamepad.an.AxiGamePadIndexActivity;
 import cn.axi.gamepad.an.GamePadUIActivity;
 
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -240,7 +239,8 @@ public class PcView extends Activity {
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         ImageButton helpButton = findViewById(R.id.helpButton);
         ImageButton axButton = findViewById(R.id.axiButton);
-        axButton.setVisibility(View.VISIBLE);
+        // Meikel-Fork: Controller-Werkzeuge (axi_gamepad.aar) entfernt, Knopf ausgeblendet
+        axButton.setVisibility(View.GONE);
         settingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,13 +255,6 @@ public class PcView extends Activity {
             }
         });
 
-        axButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PcView.this, AxiGamePadIndexActivity.class);
-                startActivity(i);
-            }
-        });
 
         hostCarousel = findViewById(R.id.hostCarousel);
         pageIndicator = findViewById(R.id.homePageIndicator);
